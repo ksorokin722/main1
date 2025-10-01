@@ -402,7 +402,7 @@ const Dashboard = () => {
                     className="w-8 h-8 rounded-xl"
                   />
                   <div className="hidden md:block">
-                    <p className="text-sm font-medium text-white">{user.name}</p>
+                    <p className="text-sm font-medium text-white">{user?.name || 'Блогер'}</p>
                     <div className="flex items-center space-x-1">
                       {user.isVerified ? (
                         <CheckCircle className="w-3 h-3 text-green-400" />
