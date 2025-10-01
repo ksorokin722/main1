@@ -17,6 +17,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/advertiser/auth" element={<AdvertiserAuth />} />
+            <Route path="/advertiser/dashboard" element={<AdvertiserDashboard />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
