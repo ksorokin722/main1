@@ -489,6 +489,7 @@ test_plan:
   frontend_fixes_complete: true
   campaign_details_testing_complete: false
   advertiser_functionality_testing_complete: true
+  six_improvements_testing_complete: true
 
 agent_communication:
   - agent: "main"
