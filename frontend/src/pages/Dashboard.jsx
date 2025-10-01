@@ -357,30 +357,44 @@ const Dashboard = () => {
                 })}
               </div>
               
-              <div className="flex items-center space-x-3">
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => openCampaignDetails(campaign)}
-                  className="border-gray-600 text-gray-300 hover:border-purple-500 hover:text-purple-400"
-                >
-                  <Eye className="w-4 h-4 mr-2" />
-                  Подробнее
-                </Button>
-                
-                <Badge 
-                  className={`${
-                    campaign.status === 'available' 
-                      ? 'bg-green-500/20 text-green-400 border-green-500' 
-                      : campaign.status === 'applied' 
-                        ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500'
-                        : 'bg-blue-500/20 text-blue-400 border-blue-500'
-                  } border`}
-                >
-                  {campaign.status === 'available' && '🟢 Доступна'}
-                  {campaign.status === 'applied' && '🟡 Подана заявка'}
-                  {campaign.status === 'completed' && '🔵 Завершена'}
-                </Badge>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => openCampaignDetails(campaign)}
+                    className="border-gray-600 text-gray-300 hover:border-purple-500 hover:text-purple-400"
+                  >
+                    <Eye className="w-4 h-4 mr-2" />
+                    Подробнее
+                  </Button>
+                  
+                  <Badge 
+                    className={`${
+                      campaign.status === 'available' 
+                        ? 'bg-green-500/20 text-green-400 border-green-500' 
+                        : campaign.status === 'applied' 
+                          ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500'
+                          : 'bg-blue-500/20 text-blue-400 border-blue-500'
+                    } border`}
+                  >
+                    {campaign.status === 'available' && '🟢 Доступна'}
+                    {campaign.status === 'applied' && '🟡 Подана заявка'}
+                    {campaign.status === 'completed' && '🔵 Завершена'}
+                  </Badge>
+                </div>
+
+                {campaign.status === 'available' && (
+                  <Button 
+                    size="sm"
+                    className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold"
+                    onClick={() => {
+                      alert(`Подключение к кампании "${campaign.title}" успешно!`);
+                    }}
+                  >
+                    ⚡ Подключиться
+                  </Button>
+                )}
               </div>
             </div>
           </Card>
