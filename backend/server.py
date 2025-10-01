@@ -35,6 +35,95 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
+# User Models
+class SocialAccount(BaseModel):
+    id: str
+    name: str
+    followers: int
+    platform_url: str = ""
+
+class ContactInfo(BaseModel):
+    telegram: str = ""
+    whatsapp: str = ""
+    vk: str = ""
+
+class PayoutInfo(BaseModel):
+    method: str = "card"
+    card_number: str = ""
+    bank_name: str = ""
+    account_holder: str = ""
+
+class UserStats(BaseModel):
+    followers: int = 0
+    campaigns: int = 0
+    earnings: str = "0 ₽"
+    completed_campaigns: int = 0
+    average_rating: float = 0.0
+    total_views: int = 0
+    total_engagement: int = 0
+
+class User(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    email: str
+    phone: str = ""
+    avatar: str = ""
+    is_verified: bool = False
+    social_accounts: List[SocialAccount] = []
+    contact_info: ContactInfo = Field(default_factory=ContactInfo)
+    payout_info: PayoutInfo = Field(default_factory=PayoutInfo)
+    loyalty_points: int = 100
+    stats: UserStats = Field(default_factory=UserStats)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class UserCreate(BaseModel):
+    name: str
+    email: str
+    password: str
+    phone: str = ""
+    social_accounts: List[SocialAccount] = []
+
+class UserLogin(BaseModel):
+    email: str
+    password: str
+
+# Campaign Models
+class Campaign(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    title: str
+    brand: str
+    reward: str
+    deadline: str
+    status: str = "available"  # available, applied, completed
+    description: str
+    requirements: str
+    platforms: List[str] = []
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+# Analytics Models
+class CampaignMetric(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
+    campaign_id: str
+    views: int = 0
+    likes: int = 0
+    comments: int = 0
+    shares: int = 0
+    ctr: float = 0.0
+    engagement: float = 0.0
+    earnings: int = 0
+    rating: float = 0.0
+    date: str
+    platform: str
+
+# Loyalty Transaction Models
+class LoyaltyTransaction(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
+    points: int
+    reason: str
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
