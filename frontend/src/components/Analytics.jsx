@@ -220,19 +220,19 @@ const Analytics = () => {
         </TabsList>
 
         <TabsContent value="earnings" className="mt-6">
-          <Card className="p-6 bg-slate-800/50 border-gray-700">
-            <h3 className="text-xl font-bold text-white mb-6">Динамика доходов</h3>
-            <div className="h-80">
+          <Card className="p-4 sm:p-6 bg-slate-800/50 border-gray-700">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6">Динамика доходов</h3>
+            <div className="h-64 sm:h-80">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={analyticsData.earnings}>
+                <LineChart data={analyticsData.earnings} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(75, 85, 99, 0.3)" />
                   <XAxis 
                     dataKey="month" 
-                    tick={{ fill: 'rgb(156, 163, 175)' }}
+                    tick={{ fill: 'rgb(156, 163, 175)', fontSize: 12 }}
                     axisLine={{ stroke: 'rgba(75, 85, 99, 0.3)' }}
                   />
                   <YAxis 
-                    tick={{ fill: 'rgb(156, 163, 175)' }}
+                    tick={{ fill: 'rgb(156, 163, 175)', fontSize: 12 }}
                     axisLine={{ stroke: 'rgba(75, 85, 99, 0.3)' }}
                   />
                   <Tooltip content={<CustomTooltip />} />
@@ -240,9 +240,9 @@ const Analytics = () => {
                     type="monotone" 
                     dataKey="earnings" 
                     stroke={colors.primary}
-                    strokeWidth={3}
-                    dot={{ fill: colors.primary, strokeWidth: 2, r: 6 }}
-                    activeDot={{ r: 8, fill: colors.primary }}
+                    strokeWidth={2}
+                    dot={{ fill: colors.primary, strokeWidth: 2, r: 4 }}
+                    activeDot={{ r: 6, fill: colors.primary }}
                   />
                 </LineChart>
               </ResponsiveContainer>
