@@ -28,7 +28,7 @@ const Dashboard = () => {
 
   const [campaigns] = useState([
     {
-      id: 1,
+      id: '1',
       title: 'Новая линейка российских смартфонов TechNova X1',
       brand: 'TechNova Russia',
       reward: '15,000 ₽',
@@ -39,7 +39,7 @@ const Dashboard = () => {
       platforms: ['youtube', 'rutube']
     },
     {
-      id: 2,
+      id: '2',
       title: 'Весенняя коллекция российского бренда FashionSpace',
       brand: 'FashionSpace РФ',
       reward: '20,000 ₽',
@@ -50,7 +50,7 @@ const Dashboard = () => {
       platforms: ['vk', 'telegram']
     },
     {
-      id: 3,
+      id: '3',
       title: 'Здоровый образ жизни с российским брендом HealthyLife',
       brand: 'HealthyLife Россия',
       reward: '12,500 ₽',
