@@ -153,7 +153,9 @@ const TopBloggers = () => {
 
           {/* CTA Section */}
           <div className="text-center mt-16">
-            <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold px-8 py-4 rounded-full transform hover:scale-105 transition-all duration-200 shadow-2xl shadow-purple-500/25">
+            <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold px-8 py-4 rounded-full transform hover:scale-105 transition-all duration-200 shadow-2xl shadow-purple-500/25"
+              onClick={() => window.location.href = '/auth'}
+            >
               Стать топ блогером
             </Button>
             <p className="text-gray-400 mt-4 text-sm">
