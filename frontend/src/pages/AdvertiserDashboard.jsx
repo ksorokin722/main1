@@ -1,0 +1,671 @@
+import React, { useState } from 'react';
+import { Card } from '../components/ui/card';
+import { Button } from '../components/ui/button';
+import { Badge } from '../components/ui/badge';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
+import { 
+  Users, Filter, ShoppingCart, Eye, Star, MapPin, 
+  TrendingUp, Heart, MessageCircle, Share2, Plus,
+  Settings, LogOut, BarChart3, Target, Zap, Award,
+  Search, Calendar, DollarSign, CheckCircle, Clock
+} from 'lucide-react';
+
+const AdvertiserDashboard = () => {
+  const [activeTab, setActiveTab] = useState('catalog');
+  const [selectedBloggers, setSelectedBloggers] = useState([]);
+  const [filters, setFilters] = useState({
+    category: 'all',
+    minFollowers: 0,
+    maxPrice: 100000,
+    gender: 'all',
+    ageRange: 'all',
+    geo: 'all'
+  });
+
+  // Mock data - 20 блогеров
+  const bloggers = [
+    {
+      id: 1,
+      name: 'Анна Петрова',
+      username: '@anna_beauty',
+      category: 'beauty',
+      followers: 125000,
+      avatar: 'https://images.unsplash.com/photo-1494790108755-2616c5e7b37e?w=400',
+      description: 'Beauty блогер, делюсь секретами красоты и ухода',
+      engagement: 8.5,
+      ctr: 3.2,
+      reach: 95000,
+      price: 25000,
+      audience: { female: 85, male: 15, age: '25-35', geo: 'Москва, СПб' }
+    },
+    {
+      id: 2,
+      name: 'Игорь Новиков',
+      username: '@tech_igor',
+      category: 'tech',
+      followers: 89000,
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+      description: 'Обзоры техники и гаджетов для российского рынка',
+      engagement: 6.7,
+      ctr: 2.8,
+      reach: 67000,
+      price: 18000,
+      audience: { female: 25, male: 75, age: '18-35', geo: 'Москва, Екатеринбург' }
+    },
+    {
+      id: 3,
+      name: 'Мария Волкова',
+      username: '@maria_travel',
+      category: 'travel',
+      followers: 156000,
+      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
+      description: 'Путешествия по России и зарубежью',
+      engagement: 9.2,
+      ctr: 4.1,
+      reach: 120000,
+      price: 35000,
+      audience: { female: 68, male: 32, age: '25-45', geo: 'По всей России' }
+    },
+    {
+      id: 4,
+      name: 'Дмитрий Кулинар',
+      username: '@dmitry_food',
+      category: 'food',
+      followers: 78000,
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+      description: 'Рецепты русской и мировой кухни',
+      engagement: 7.8,
+      ctr: 3.5,
+      reach: 58000,
+      price: 15000,
+      audience: { female: 72, male: 28, age: '30-50', geo: 'Москва, Казань' }
+    },
+    {
+      id: 5,
+      name: 'Екатерина Фитнес',
+      username: '@katya_fit',
+      category: 'fitness',
+      followers: 134000,
+      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400',
+      description: 'Здоровый образ жизни и фитнес программы',
+      engagement: 8.9,
+      ctr: 3.8,
+      reach: 105000,
+      price: 28000,
+      audience: { female: 78, male: 22, age: '20-40', geo: 'Москва, СПб, Сочи' }
+    },
+    {
+      id: 6,
+      name: 'Максим Гейминг',
+      username: '@max_gamer',
+      category: 'gaming',
+      followers: 167000,
+      avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400',
+      description: 'Обзоры игр и киберспорт',
+      engagement: 12.1,
+      ctr: 5.2,
+      reach: 145000,
+      price: 40000,
+      audience: { female: 15, male: 85, age: '16-30', geo: 'По всей России' }
+    },
+    {
+      id: 7,
+      name: 'София Мода',
+      username: '@sofia_style',
+      category: 'fashion',
+      followers: 201000,
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400',
+      description: 'Модные тренды и стильные образы',
+      engagement: 9.7,
+      ctr: 4.3,
+      reach: 178000,
+      price: 45000,
+      audience: { female: 89, male: 11, age: '18-35', geo: 'Москва, СПб' }
+    },
+    {
+      id: 8,
+      name: 'Артем Авто',
+      username: '@artem_cars',
+      category: 'automotive',
+      followers: 112000,
+      avatar: 'https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=400',
+      description: 'Обзоры автомобилей российского рынка',
+      engagement: 6.4,
+      ctr: 2.9,
+      reach: 89000,
+      price: 22000,
+      audience: { female: 8, male: 92, age: '25-45', geo: 'Москва, Казань' }
+    },
+    {
+      id: 9,
+      name: 'Ольга Дом',
+      username: '@olga_home',
+      category: 'lifestyle',
+      followers: 95000,
+      avatar: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400',
+      description: 'Дизайн интерьера и уютный дом',
+      engagement: 7.6,
+      ctr: 3.4,
+      reach: 73000,
+      price: 19000,
+      audience: { female: 81, male: 19, age: '25-50', geo: 'Москва, СПб, Краснодар' }
+    },
+    {
+      id: 10,
+      name: 'Владимир Бизнес',
+      username: '@vlad_business',
+      category: 'business',
+      followers: 67000,
+      avatar: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?w=400',
+      description: 'Бизнес и инвестиции в России',
+      engagement: 5.8,
+      ctr: 2.1,
+      reach: 52000,
+      price: 16000,
+      audience: { female: 35, male: 65, age: '25-45', geo: 'Москва, СПб' }
+    },
+    // Добавлю еще 10 блогеров...
+    {
+      id: 11,
+      name: 'Лиза Дети',
+      username: '@liza_kids',
+      category: 'parenting',
+      followers: 143000,
+      avatar: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=400',
+      description: 'Материнство и детское развитие',
+      engagement: 8.3,
+      ctr: 3.7,
+      reach: 118000,
+      price: 30000,
+      audience: { female: 93, male: 7, age: '25-40', geo: 'По всей России' }
+    },
+    {
+      id: 12,
+      name: 'Никита Музыка',
+      username: '@nikita_music',
+      category: 'music',
+      followers: 187000,
+      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400',
+      description: 'Музыкальные обзоры и российская сцена',
+      engagement: 11.2,
+      ctr: 4.8,
+      reach: 159000,
+      price: 38000,
+      audience: { female: 45, male: 55, age: '16-35', geo: 'Москва, СПб, Казань' }
+    },
+    {
+      id: 13,
+      name: 'Алина Образование',
+      username: '@alina_edu',
+      category: 'education',
+      followers: 76000,
+      avatar: 'https://images.unsplash.com/photo-1494790108755-2616c5e7b37e?w=400',
+      description: 'Онлайн образование и саморазвитие',
+      engagement: 6.9,
+      ctr: 2.7,
+      reach: 61000,
+      price: 14000,
+      audience: { female: 67, male: 33, age: '20-35', geo: 'Москва, СПб, Нижний Новгород' }
+    },
+    {
+      id: 14,
+      name: 'Роман Спорт',
+      username: '@roman_sport',
+      category: 'sports',
+      followers: 129000,
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+      description: 'Профессиональный спорт и тренировки',
+      engagement: 9.4,
+      ctr: 4.2,
+      reach: 112000,
+      price: 26000,
+      audience: { female: 28, male: 72, age: '18-40', geo: 'По всей России' }
+    },
+    {
+      id: 15,
+      name: 'Валентина Книги',
+      username: '@valya_books',
+      category: 'books',
+      followers: 58000,
+      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
+      description: 'Обзоры книг и литературные рецензии',
+      engagement: 7.1,
+      ctr: 3.1,
+      reach: 46000,
+      price: 12000,
+      audience: { female: 74, male: 26, age: '20-50', geo: 'Москва, СПб, Екатеринбург' }
+    },
+    {
+      id: 16,
+      name: 'Григорий Наука',
+      username: '@grisha_science',
+      category: 'science',
+      followers: 92000,
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+      description: 'Популярная наука и технологии',
+      engagement: 6.2,
+      ctr: 2.4,
+      reach: 74000,
+      price: 17000,
+      audience: { female: 42, male: 58, age: '20-40', geo: 'Москва, СПб, Новосибирск' }
+    },
+    {
+      id: 17,
+      name: 'Кристина Психология',
+      username: '@kristina_psy',
+      category: 'psychology',
+      followers: 114000,
+      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400',
+      description: 'Практическая психология и саморазвитие',
+      engagement: 8.7,
+      ctr: 3.9,
+      reach: 97000,
+      price: 24000,
+      audience: { female: 79, male: 21, age: '25-45', geo: 'По всей России' }
+    },
+    {
+      id: 18,
+      name: 'Денис Крипто',
+      username: '@denis_crypto',
+      category: 'crypto',
+      followers: 84000,
+      avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400',
+      description: 'Криптовалюты и блокчейн технологии',
+      engagement: 7.3,
+      ctr: 3.0,
+      reach: 68000,
+      price: 20000,
+      audience: { female: 18, male: 82, age: '22-40', geo: 'Москва, СПб' }
+    },
+    {
+      id: 19,
+      name: 'Юлия Животные',
+      username: '@yulia_pets',
+      category: 'pets',
+      followers: 106000,
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400',
+      description: 'Уход за домашними животными',
+      engagement: 10.1,
+      ctr: 4.5,
+      reach: 89000,
+      price: 21000,
+      audience: { female: 76, male: 24, age: '20-50', geo: 'По всей России' }
+    },
+    {
+      id: 20,
+      name: 'Сергей DIY',
+      username: '@sergey_diy',
+      category: 'diy',
+      followers: 71000,
+      avatar: 'https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=400',
+      description: 'Своими руками и рукоделие',
+      engagement: 6.8,
+      ctr: 2.9,
+      reach: 57000,
+      price: 13000,
+      audience: { female: 51, male: 49, age: '25-50', geo: 'Москва, СПб, Казань' }
+    }
+  ];
+
+  const categories = [
+    { id: 'all', name: 'Все категории', count: 20 },
+    { id: 'beauty', name: 'Красота', count: 1 },
+    { id: 'tech', name: 'Технологии', count: 1 },
+    { id: 'travel', name: 'Путешествия', count: 1 },
+    { id: 'food', name: 'Еда', count: 1 },
+    { id: 'fitness', name: 'Фитнес', count: 1 },
+    { id: 'gaming', name: 'Игры', count: 1 },
+    { id: 'fashion', name: 'Мода', count: 1 },
+    { id: 'automotive', name: 'Авто', count: 1 },
+    { id: 'lifestyle', name: 'Лайфстайл', count: 1 },
+    { id: 'business', name: 'Бизнес', count: 1 }
+  ];
+
+  const filteredBloggers = bloggers.filter(blogger => {
+    return (filters.category === 'all' || blogger.category === filters.category) &&
+           blogger.followers >= filters.minFollowers &&
+           blogger.price <= filters.maxPrice;
+  });
+
+  const addToBag = (blogger) => {
+    if (!selectedBloggers.find(b => b.id === blogger.id)) {
+      setSelectedBloggers([...selectedBloggers, blogger]);
+    }
+  };
+
+  const removeFromBag = (bloggerId) => {
+    setSelectedBloggers(selectedBloggers.filter(b => b.id !== bloggerId));
+  };
+
+  const totalCampaignCost = selectedBloggers.reduce((sum, blogger) => sum + blogger.price, 0);
+  const totalReach = selectedBloggers.reduce((sum, blogger) => sum + blogger.reach, 0);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Header */}
+      <header className="bg-slate-900/80 backdrop-blur-md border-b border-gray-800 sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <h1 className="text-2xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Ublogger
+              </h1>
+              <Badge className="bg-blue-500 text-white">Рекламодатель</Badge>
+            </div>
+            <div className="flex items-center space-x-4">
+              <Button variant="outline" size="sm" className="border-gray-600 text-gray-300">
+                <Settings className="w-4 h-4 mr-2" />
+                Настройки
+              </Button>
+              <Button variant="outline" size="sm" className="border-gray-600 text-gray-300">
+                <LogOut className="w-4 h-4 mr-2" />
+                Выход
+              </Button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        {/* Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-4 bg-slate-800/50 border border-gray-700">
+            <TabsTrigger value="catalog" className="data-[state=active]:bg-purple-500">
+              <Users className="w-4 h-4 mr-2" />
+              Каталог блогеров
+            </TabsTrigger>
+            <TabsTrigger value="bag" className="data-[state=active]:bg-purple-500 relative">
+              <ShoppingCart className="w-4 h-4 mr-2" />
+              Корзина
+              {selectedBloggers.length > 0 && (
+                <Badge className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                  {selectedBloggers.length}
+                </Badge>
+              )}
+            </TabsTrigger>
+            <TabsTrigger value="campaigns" className="data-[state=active]:bg-purple-500">
+              <Target className="w-4 h-4 mr-2" />
+              Мои кампании
+            </TabsTrigger>
+            <TabsTrigger value="analytics" className="data-[state=active]:bg-purple-500">
+              <BarChart3 className="w-4 h-4 mr-2" />
+              Аналитика
+            </TabsTrigger>
+          </TabsList>
+
+          {/* Каталог блогеров */}
+          <TabsContent value="catalog" className="mt-6">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+              
+              {/* Фильтры */}
+              <Card className="lg:col-span-1 p-6 bg-slate-800/50 border-gray-700 h-fit">
+                <h3 className="text-lg font-bold text-white mb-4 flex items-center">
+                  <Filter className="w-5 h-5 mr-2" />
+                  Фильтры
+                </h3>
+                
+                <div className="space-y-6">
+                  {/* Категория */}
+                  <div>
+                    <label className="text-sm font-medium text-gray-300 mb-3 block">Тематика</label>
+                    <select 
+                      className="w-full p-3 bg-slate-700 border border-gray-600 rounded-lg text-white"
+                      value={filters.category}
+                      onChange={(e) => setFilters({...filters, category: e.target.value})}
+                    >
+                      {categories.map(cat => (
+                        <option key={cat.id} value={cat.id}>{cat.name} ({cat.count})</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Подписчики */}
+                  <div>
+                    <label className="text-sm font-medium text-gray-300 mb-3 block">
+                      Минимум подписчиков: {filters.minFollowers.toLocaleString()}
+                    </label>
+                    <input 
+                      type="range" 
+                      min="0" 
+                      max="200000" 
+                      step="10000"
+                      value={filters.minFollowers}
+                      onChange={(e) => setFilters({...filters, minFollowers: parseInt(e.target.value)})}
+                      className="w-full"
+                    />
+                  </div>
+
+                  {/* Стоимость */}
+                  <div>
+                    <label className="text-sm font-medium text-gray-300 mb-3 block">
+                      Максимальная стоимость: {filters.maxPrice.toLocaleString()} ₽
+                    </label>
+                    <input 
+                      type="range" 
+                      min="5000" 
+                      max="100000" 
+                      step="5000"
+                      value={filters.maxPrice}
+                      onChange={(e) => setFilters({...filters, maxPrice: parseInt(e.target.value)})}
+                      className="w-full"
+                    />
+                  </div>
+
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-gray-600 text-gray-300"
+                    onClick={() => setFilters({
+                      category: 'all',
+                      minFollowers: 0,
+                      maxPrice: 100000,
+                      gender: 'all',
+                      ageRange: 'all',
+                      geo: 'all'
+                    })}
+                  >
+                    Сбросить фильтры
+                  </Button>
+                </div>
+              </Card>
+
+              {/* Список блогеров */}
+              <div className="lg:col-span-3">
+                <div className="mb-6 flex items-center justify-between">
+                  <h2 className="text-2xl font-bold text-white">
+                    Найдено блогеров: {filteredBloggers.length}
+                  </h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {filteredBloggers.map(blogger => (
+                    <Card key={blogger.id} className="p-6 bg-slate-800/50 border-gray-700 hover:border-purple-500/50 transition-colors">
+                      
+                      {/* Avatar and basic info */}
+                      <div className="flex items-center space-x-4 mb-4">
+                        <img 
+                          src={blogger.avatar} 
+                          alt={blogger.name}
+                          className="w-16 h-16 rounded-full object-cover"
+                        />
+                        <div className="flex-1">
+                          <h3 className="font-bold text-white">{blogger.name}</h3>
+                          <p className="text-purple-400 text-sm">{blogger.username}</p>
+                          <Badge className="bg-purple-500/20 text-purple-400 text-xs mt-1">
+                            {blogger.category}
+                          </Badge>
+                        </div>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-gray-300 text-sm mb-4">{blogger.description}</p>
+
+                      {/* Stats */}
+                      <div className="grid grid-cols-2 gap-4 mb-4 text-center">
+                        <div className="bg-slate-700/50 rounded-lg p-3">
+                          <div className="text-lg font-bold text-white">{(blogger.followers/1000).toFixed(0)}K</div>
+                          <div className="text-xs text-gray-400">Подписчики</div>
+                        </div>
+                        <div className="bg-slate-700/50 rounded-lg p-3">
+                          <div className="text-lg font-bold text-green-400">{blogger.engagement}%</div>
+                          <div className="text-xs text-gray-400">ER</div>
+                        </div>
+                      </div>
+
+                      {/* Audience */}
+                      <div className="mb-4 p-3 bg-slate-700/30 rounded-lg">
+                        <div className="text-xs text-gray-400 mb-2">Аудитория:</div>
+                        <div className="flex justify-between text-xs text-gray-300">
+                          <span>👩 {blogger.audience.female}%</span>
+                          <span>👨 {blogger.audience.male}%</span>
+                          <span>🎂 {blogger.audience.age}</span>
+                        </div>
+                        <div className="text-xs text-gray-300 mt-1">📍 {blogger.audience.geo}</div>
+                      </div>
+
+                      {/* Price and actions */}
+                      <div className="flex items-center justify-between">
+                        <div className="text-right">
+                          <div className="text-xl font-bold text-green-400">{blogger.price.toLocaleString()} ₽</div>
+                          <div className="text-xs text-gray-400">за публикацию</div>
+                        </div>
+                        <div className="flex space-x-2">
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            className="border-gray-600 text-gray-300"
+                          >
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            onClick={() => addToBag(blogger)}
+                            disabled={selectedBloggers.find(b => b.id === blogger.id)}
+                            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 disabled:opacity-50"
+                          >
+                            <Plus className="w-4 h-4 mr-1" />
+                            В корзину
+                          </Button>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* Корзина */}
+          <TabsContent value="bag" className="mt-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              
+              {/* Список выбранных блогеров */}
+              <div className="lg:col-span-2">
+                <h2 className="text-2xl font-bold text-white mb-6">
+                  Выбранные блогеры ({selectedBloggers.length})
+                </h2>
+                
+                {selectedBloggers.length === 0 ? (
+                  <Card className="p-8 bg-slate-800/50 border-gray-700 text-center">
+                    <ShoppingCart className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-gray-300 mb-2">Корзина пуста</h3>
+                    <p className="text-gray-400">Добавьте блогеров из каталога для создания кампании</p>
+                  </Card>
+                ) : (
+                  <div className="space-y-4">
+                    {selectedBloggers.map(blogger => (
+                      <Card key={blogger.id} className="p-4 bg-slate-800/50 border-gray-700">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-4">
+                            <img 
+                              src={blogger.avatar} 
+                              alt={blogger.name}
+                              className="w-12 h-12 rounded-full object-cover"
+                            />
+                            <div>
+                              <h4 className="font-bold text-white">{blogger.name}</h4>
+                              <p className="text-purple-400 text-sm">{blogger.username}</p>
+                              <div className="text-xs text-gray-400">
+                                {(blogger.followers/1000).toFixed(0)}K подписчиков • {blogger.engagement}% ER
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center space-x-4">
+                            <div className="text-right">
+                              <div className="text-lg font-bold text-green-400">{blogger.price.toLocaleString()} ₽</div>
+                              <div className="text-xs text-gray-400">{(blogger.reach/1000).toFixed(0)}K охват</div>
+                            </div>
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => removeFromBag(blogger.id)}
+                              className="border-red-500 text-red-400 hover:bg-red-500/10"
+                            >
+                              Удалить
+                            </Button>
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Сводка по кампании */}
+              <div className="lg:col-span-1">
+                <Card className="p-6 bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 sticky top-24">
+                  <h3 className="text-xl font-bold text-white mb-4">Сводка по кампании</h3>
+                  
+                  <div className="space-y-4 mb-6">
+                    <div className="flex justify-between">
+                      <span className="text-gray-300">Блогеров выбрано:</span>
+                      <span className="text-white font-bold">{selectedBloggers.length}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-300">Общий охват:</span>
+                      <span className="text-green-400 font-bold">{(totalReach/1000).toFixed(0)}K</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-300">Стоимость кампании:</span>
+                      <span className="text-yellow-400 font-bold">{totalCampaignCost.toLocaleString()} ₽</span>
+                    </div>
+                  </div>
+
+                  {selectedBloggers.length > 0 && (
+                    <div className="space-y-3">
+                      <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                        Создать кампанию
+                      </Button>
+                      <Button variant="outline" className="w-full border-gray-600 text-gray-300">
+                        Отправить запрос
+                      </Button>
+                    </div>
+                  )}
+                </Card>
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* Заглушки для других табов */}
+          <TabsContent value="campaigns" className="mt-6">
+            <Card className="p-8 bg-slate-800/50 border-gray-700 text-center">
+              <Target className="w-16 h-16 text-purple-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">Управление кампаниями</h3>
+              <p className="text-gray-400">Создание, модерация и мониторинг рекламных кампаний</p>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="analytics" className="mt-6">
+            <Card className="p-8 bg-slate-800/50 border-gray-700 text-center">
+              <BarChart3 className="w-16 h-16 text-blue-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">Аналитика кампаний</h3>
+              <p className="text-gray-400">Статистика эффективности и ROI рекламных кампаний</p>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
+  );
+};
+
+export default AdvertiserDashboard;
