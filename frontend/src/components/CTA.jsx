@@ -132,6 +132,7 @@ const CTA = () => {
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold px-12 py-6 rounded-full text-xl transform hover:scale-110 transition-all duration-200 shadow-2xl shadow-purple-500/25 group relative overflow-hidden"
+                onClick={() => window.location.href = '/auth'}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="relative flex items-center">
