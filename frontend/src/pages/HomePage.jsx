@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Stats from '../components/Stats';
 import Features from '../components/Features';
+import SocialMediaShowcase from '../components/SocialMediaShowcase';
 import TopBloggers from '../components/TopBloggers';
 import Brands from '../components/Brands';
 import Testimonials from '../components/Testimonials';
