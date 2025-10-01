@@ -56,15 +56,20 @@ const Auth = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    const userData = { ...formData, socialAccounts: selectedSocials };
+    const userData = { ...formData };
+    await login(userData);
+    navigate('/dashboard');
+  };
+
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+    // Only proceed if we're on the final step
+    if (step !== 3) return;
     
-    if (mode === 'login') {
-      await login(userData);
-    } else {
-      await register(userData);
-    }
+    const userData = { ...formData, socialAccounts: selectedSocials };
+    await register(userData);
     navigate('/dashboard');
   };
 
