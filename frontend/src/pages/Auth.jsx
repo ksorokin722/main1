@@ -369,7 +369,7 @@ const Auth = () => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleRegisterSubmit}>
         <div className="flex space-x-4">
           <Button
             type="button"
