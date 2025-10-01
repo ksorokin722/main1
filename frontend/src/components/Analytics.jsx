@@ -279,18 +279,18 @@ const Analytics = () => {
         </TabsContent>
 
         <TabsContent value="engagement" className="mt-6">
-          <Card className="p-6 bg-slate-800/50 border-gray-700">
-            <h3 className="text-xl font-bold text-white mb-6">Структура вовлечения аудитории</h3>
-            <div className="h-80">
+          <Card className="p-4 sm:p-6 bg-slate-800/50 border-gray-700">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6">Структура вовлечения аудитории</h3>
+            <div className="h-64 sm:h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={analyticsData.engagement}
                     cx="50%"
                     cy="50%"
-                    innerRadius={60}
-                    outerRadius={120}
-                    paddingAngle={5}
+                    innerRadius={30}
+                    outerRadius={80}
+                    paddingAngle={3}
                     dataKey="value"
                   >
                     {analyticsData.engagement.map((entry, index) => (
@@ -303,8 +303,8 @@ const Analytics = () => {
                         const data = payload[0].payload;
                         return (
                           <div className="bg-slate-800 p-3 rounded-lg border border-gray-600 shadow-lg">
-                            <p className="text-white font-semibold">{data.name}</p>
-                            <p style={{ color: data.color }}>
+                            <p className="text-white font-semibold text-sm">{data.name}</p>
+                            <p style={{ color: data.color }} className="text-sm">
                               {data.value.toLocaleString()}
                             </p>
                           </div>
@@ -314,11 +314,12 @@ const Analytics = () => {
                     }}
                   />
                   <Legend 
-                    verticalAlign="middle" 
-                    align="right"
-                    layout="vertical"
+                    verticalAlign="bottom" 
+                    align="center"
+                    layout="horizontal"
                     iconType="circle"
-                    wrapperStyle={{ color: 'rgb(156, 163, 175)' }}
+                    wrapperStyle={{ color: 'rgb(156, 163, 175)', fontSize: '12px' }}
+                    className="flex-wrap text-xs"
                   />
                 </PieChart>
               </ResponsiveContainer>
