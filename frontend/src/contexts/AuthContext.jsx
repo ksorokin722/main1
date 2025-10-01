@@ -24,11 +24,35 @@ export const AuthProvider = ({ children }) => {
         email: credentials.email,
         avatar: 'https://images.unsplash.com/photo-1494790108755-2616c5e7b37e?w=400&h=400&fit=crop&crop=face',
         isVerified: false,
-        socialAccounts: [],
+        socialAccounts: credentials.socialAccounts || [],
+        phone: credentials.phone || '',
+        contactInfo: {
+          telegram: '',
+          whatsapp: '',
+          vk: ''
+        },
+        reach: {
+          total: 0,
+          youtube: 0,
+          telegram: 0,
+          rutube: 0,
+          vk: 0
+        },
+        payoutInfo: {
+          method: 'card',
+          cardNumber: '',
+          bankName: '',
+          accountHolder: ''
+        },
+        loyaltyPoints: 150,
         stats: {
           followers: 0,
           campaigns: 0,
-          earnings: '0 ₽'
+          earnings: '0 ₽',
+          completedCampaigns: 0,
+          averageRating: 0,
+          totalViews: 0,
+          totalEngagement: 0
         }
       });
       setIsLoading(false);
@@ -39,17 +63,43 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     // Simulate API call
     setTimeout(() => {
+      const totalReach = userData.socialAccounts.reduce((sum, account) => sum + account.followers, 0);
+      
       setUser({
         id: Date.now(),
         name: userData.name,
         email: userData.email,
         avatar: userData.avatar || 'https://images.unsplash.com/photo-1494790108755-2616c5e7b37e?w=400&h=400&fit=crop&crop=face',
+        phone: userData.phone,
         isVerified: false,
-        socialAccounts: [],
+        socialAccounts: userData.socialAccounts || [],
+        contactInfo: {
+          telegram: '',
+          whatsapp: '',
+          vk: ''
+        },
+        reach: {
+          total: totalReach,
+          youtube: userData.socialAccounts.find(s => s.id === 'youtube')?.followers || 0,
+          telegram: userData.socialAccounts.find(s => s.id === 'telegram')?.followers || 0,
+          rutube: userData.socialAccounts.find(s => s.id === 'rutube')?.followers || 0,
+          vk: userData.socialAccounts.find(s => s.id === 'vk')?.followers || 0
+        },
+        payoutInfo: {
+          method: 'card',
+          cardNumber: '',
+          bankName: '',
+          accountHolder: ''
+        },
+        loyaltyPoints: 100, // Начальные баллы за регистрацию
         stats: {
-          followers: 0,
+          followers: totalReach,
           campaigns: 0,
-          earnings: '0 ₽'
+          earnings: '0 ₽',
+          completedCampaigns: 0,
+          averageRating: 0,
+          totalViews: 0,
+          totalEngagement: 0
         }
       });
       setIsLoading(false);
@@ -64,6 +114,13 @@ export const AuthProvider = ({ children }) => {
     setUser(prev => ({ ...prev, ...updates }));
   };
 
+  const addLoyaltyPoints = (points, reason) => {
+    setUser(prev => ({
+      ...prev,
+      loyaltyPoints: prev.loyaltyPoints + points
+    }));
+  };
+
   return (
     <AuthContext.Provider value={{
       user,
@@ -72,6 +129,7 @@ export const AuthProvider = ({ children }) => {
       register,
       logout,
       updateUser,
+      addLoyaltyPoints,
       isAuthenticated: !!user
     }}>
       {children}
