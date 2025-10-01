@@ -16,17 +16,15 @@ const Stats = () => {
       label: 'Российских блогеров',
       color: 'from-purple-500 to-pink-500',
       bgColor: 'from-purple-500/10 to-pink-500/10',
-      chartData: {
-        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
-        datasets: [{
-          label: 'Российские блогеры',
-          data: [850000, 920000, 980000, 1050000, 1120000, 1180000, 1250000],
-          borderColor: 'rgb(168, 85, 247)',
-          backgroundColor: 'rgba(168, 85, 247, 0.1)',
-          tension: 0.4,
-          fill: true
-        }]
-      }
+      chartData: [
+        { month: 'Янв', value: 850000 },
+        { month: 'Фев', value: 920000 },
+        { month: 'Мар', value: 980000 },
+        { month: 'Апр', value: 1050000 },
+        { month: 'Май', value: 1120000 },
+        { month: 'Июн', value: 1180000 },
+        { month: 'Июл', value: 1250000 }
+      ]
     },
     {
       icon: DollarSign,
