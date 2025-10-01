@@ -656,11 +656,169 @@ const AdvertiserDashboard = () => {
           </TabsContent>
 
           <TabsContent value="analytics" className="mt-6">
-            <Card className="p-8 bg-slate-800/50 border-gray-700 text-center">
-              <BarChart3 className="w-16 h-16 text-blue-400 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Аналитика кампаний</h3>
-              <p className="text-gray-400">Статистика эффективности и ROI рекламных кампаний</p>
-            </Card>
+            <div className="space-y-6">
+              
+              {/* Header с кнопками экспорта */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-2xl font-bold text-white">Аналитика кампаний</h2>
+                  <p className="text-gray-400">Подробная статистика по всем рекламным кампаниям</p>
+                </div>
+                <div className="flex space-x-3">
+                  <Button variant="outline" className="border-green-500 text-green-400">
+                    📊 Excel
+                  </Button>
+                  <Button variant="outline" className="border-red-500 text-red-400">
+                    📄 PDF
+                  </Button>
+                </div>
+              </div>
+
+              {/* Основные метрики */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <Card className="p-4 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-blue-300 text-sm font-medium">Просмотры</p>
+                      <p className="text-2xl font-bold text-white">2.4M</p>
+                      <p className="text-xs text-green-400">+12.5% за месяц</p>
+                    </div>
+                    <Eye className="w-8 h-8 text-blue-400" />
+                  </div>
+                </Card>
+
+                <Card className="p-4 bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-purple-300 text-sm font-medium">Клики</p>
+                      <p className="text-2xl font-bold text-white">156K</p>
+                      <p className="text-xs text-green-400">+8.3% за месяц</p>
+                    </div>
+                    <Target className="w-8 h-8 text-purple-400" />
+                  </div>
+                </Card>
+
+                <Card className="p-4 bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-green-300 text-sm font-medium">Лиды</p>
+                      <p className="text-2xl font-bold text-white">3,847</p>
+                      <p className="text-xs text-green-400">+15.7% за месяц</p>
+                    </div>
+                    <Users className="w-8 h-8 text-green-400" />
+                  </div>
+                </Card>
+
+                <Card className="p-4 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/20">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-yellow-300 text-sm font-medium">CTR</p>
+                      <p className="text-2xl font-bold text-white">6.5%</p>
+                      <p className="text-xs text-green-400">+2.1% за месяц</p>
+                    </div>
+                    <TrendingUp className="w-8 h-8 text-yellow-400" />
+                  </div>
+                </Card>
+              </div>
+
+              {/* Статусы заявок */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <Card className="p-6 bg-slate-800/50 border-gray-700">
+                  <h3 className="text-xl font-bold text-white mb-4">Статус заявок блогеров</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-3 bg-green-500/10 rounded-lg border border-green-500/20">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                        <span className="text-green-300 font-medium">Одобрены</span>
+                      </div>
+                      <span className="text-white font-bold">24</span>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-3 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        <span className="text-yellow-300 font-medium">Ожидают</span>
+                      </div>
+                      <span className="text-white font-bold">8</span>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-3 bg-red-500/10 rounded-lg border border-red-500/20">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <span className="text-red-300 font-medium">Отклонены</span>
+                      </div>
+                      <span className="text-white font-bold">3</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 p-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl border border-purple-500/20">
+                    <div className="text-center">
+                      <p className="text-lg font-bold text-white">Итого: 35 заявок</p>
+                      <p className="text-sm text-gray-300">Процент одобрения: 68.6%</p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 bg-slate-800/50 border-gray-700">
+                  <h3 className="text-xl font-bold text-white mb-4">Финансовые показатели</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                      <span className="text-blue-300 font-medium">Потрачено</span>
+                      <span className="text-white font-bold">847,500 ₽</span>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-3 bg-green-500/10 rounded-lg border border-green-500/20">
+                      <span className="text-green-300 font-medium">Конверсии</span>
+                      <span className="text-white font-bold">2,156</span>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-3 bg-purple-500/10 rounded-lg border border-purple-500/20">
+                      <span className="text-purple-300 font-medium">CPA</span>
+                      <span className="text-white font-bold">393 ₽</span>
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-3 bg-yellow-500/10 rounded-lg border border-yellow-500/20">
+                      <span className="text-yellow-300 font-medium">ROI</span>
+                      <span className="text-white font-bold">240%</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 p-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl border border-green-500/20">
+                    <div className="text-center">
+                      <p className="text-lg font-bold text-green-400">Прибыль: 2,034,000 ₽</p>
+                      <p className="text-sm text-gray-300">За текущий период</p>
+                    </div>
+                  </div>
+                </Card>
+
+              </div>
+
+              {/* График эффективности кампаний */}
+              <Card className="p-6 bg-slate-800/50 border-gray-700">
+                <h3 className="text-xl font-bold text-white mb-4">Эффективность кампаний по месяцам</h3>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 text-center mb-6">
+                  <div className="p-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-xl">
+                    <p className="text-2xl font-bold text-blue-400">12</p>
+                    <p className="text-sm text-gray-400">Активных кампаний</p>
+                  </div>
+                  <div className="p-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl">
+                    <p className="text-2xl font-bold text-green-400">156</p>
+                    <p className="text-sm text-gray-400">Блогеров участвует</p>
+                  </div>
+                  <div className="p-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl">
+                    <p className="text-2xl font-bold text-purple-400">4.2M</p>
+                    <p className="text-sm text-gray-400">Общий охват</p>
+                  </div>
+                </div>
+                
+                <div className="bg-gradient-to-r from-gray-900/50 to-slate-800/50 rounded-xl p-4 text-center">
+                  <BarChart3 className="w-12 h-12 text-gray-400 mx-auto mb-2" />
+                  <p className="text-gray-400">График будет добавлен в следующем обновлении</p>
+                </div>
+              </Card>
+
+            </div>
           </TabsContent>
         </Tabs>
       </div>
