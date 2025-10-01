@@ -24,7 +24,7 @@ const Auth = () => {
     { id: 'youtube', name: 'YouTube', icon: Youtube, color: 'from-red-500 to-red-600', followers: '0' },
     { id: 'telegram', name: 'Telegram', icon: MessageCircle, color: 'from-blue-500 to-blue-600', followers: '0' },
     { id: 'rutube', name: 'RuTube', icon: Video, color: 'from-purple-500 to-purple-600', followers: '0' },
-    { id: 'vk', name: 'VK', icon: Users, color: 'from-indigo-500 to-indigo-600', followers: '0' }
+    { id: 'vk', name: 'ВКонтакте', icon: Users, color: 'from-indigo-500 to-indigo-600', followers: '0' }
   ];
 
   const [selectedSocials, setSelectedSocials] = useState([]);
@@ -48,7 +48,10 @@ const Auth = () => {
       if (exists) {
         return prev.filter(s => s.id !== platform.id);
       } else {
-        return [...prev, { ...platform, followers: Math.floor(Math.random() * 10000) + 500 }];
+        return [...prev, { 
+          ...platform, 
+          followers: Math.floor(Math.random() * 50000) + Math.floor(Math.random() * 150000) + 1000 // Реалистичные числа для РФ
+        }];
       }
     });
   };
@@ -190,7 +193,7 @@ const Auth = () => {
           <Input
             type="tel"
             name="phone"
-            placeholder="Номер телефона"
+            placeholder="+7 (номер телефона)"
             value={formData.phone}
             onChange={handleInputChange}
             className="pl-10 bg-slate-800/50 border-gray-600 text-white placeholder-gray-400 focus:border-purple-500"
@@ -216,7 +219,7 @@ const Auth = () => {
           <span className="text-sm font-medium text-blue-300">Шаг 2 из 3</span>
         </div>
         <h2 className="text-3xl font-black text-white mb-2">Подключите соцсети</h2>
-        <p className="text-gray-400">Выберите платформы, на которых вы ведете блог</p>
+        <p className="text-gray-400">Выберите российские платформы, на которых вы ведете блог</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -243,7 +246,7 @@ const Auth = () => {
                 <div className="flex-1">
                   <h3 className="text-lg font-bold text-white">{platform.name}</h3>
                   <p className="text-sm text-gray-300">
-                    {isSelected ? `${isSelected.followers} подписчиков` : 'Подключить'}
+                    {isSelected ? `${isSelected.followers.toLocaleString()} подписчиков` : 'Подключить'}
                   </p>
                 </div>
                 {isSelected && (
@@ -265,7 +268,7 @@ const Auth = () => {
         <div className="p-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-2xl">
           <p className="text-green-300 text-sm text-center">
             Выбрано платформ: {selectedSocials.length} | 
-            Общая аудитория: {selectedSocials.reduce((sum, s) => sum + s.followers, 0).toLocaleString()} подписчиков
+            Общая российская аудитория: {selectedSocials.reduce((sum, s) => sum + s.followers, 0).toLocaleString()} подписчиков
           </p>
         </div>
       )}
@@ -320,7 +323,7 @@ const Auth = () => {
         </div>
 
         <div className="p-6 bg-slate-800/50 rounded-2xl border border-gray-600">
-          <h3 className="text-lg font-bold text-white mb-4">Подключенные соцсети</h3>
+          <h3 className="text-lg font-bold text-white mb-4">Подключенные соцсети (РФ)</h3>
           <div className="grid grid-cols-2 gap-3">
             {selectedSocials.map((social) => {
               const Icon = social.icon;
@@ -331,7 +334,7 @@ const Auth = () => {
                   </div>
                   <div>
                     <div className="text-sm font-medium text-white">{social.name}</div>
-                    <div className="text-xs text-gray-400">{social.followers} подписчиков</div>
+                    <div className="text-xs text-gray-400">{social.followers.toLocaleString()} подписчиков</div>
                   </div>
                 </div>
               );
@@ -342,15 +345,15 @@ const Auth = () => {
         <div className="p-6 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-2xl">
           <div className="flex items-center space-x-3 mb-4">
             <Sparkles className="w-6 h-6 text-purple-400" />
-            <h3 className="text-lg font-bold text-white">Ваш потенциал дохода</h3>
+            <h3 className="text-lg font-bold text-white">Потенциал дохода в РФ</h3>
           </div>
           <div className="grid grid-cols-3 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-black text-green-400">{Math.floor(selectedSocials.reduce((sum, s) => sum + s.followers, 0) * 0.05).toLocaleString()} ₽</div>
+              <div className="text-2xl font-black text-green-400">{Math.floor(selectedSocials.reduce((sum, s) => sum + s.followers, 0) * 0.08).toLocaleString()} ₽</div>
               <div className="text-xs text-gray-400">В месяц</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-black text-blue-400">{selectedSocials.length * 3}</div>
+              <div className="text-2xl font-black text-blue-400">{selectedSocials.length * 4}</div>
               <div className="text-xs text-gray-400">Кампаний</div>
             </div>
             <div className="text-center">
@@ -397,7 +400,7 @@ const Auth = () => {
         <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-r from-cyan-500/15 to-blue-500/15 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
 
-      {/* Social Media Illustrations */}
+      {/* Russian Blogger Illustrations */}
       <div className="absolute inset-0 overflow-hidden opacity-10">
         <img 
           src="https://images.unsplash.com/photo-1683721003111-070bcc053d8b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwzfHxzb2NpYWwlMjBtZWRpYXxlbnwwfHx8fDE3NTkyMjU2ODd8MA&ixlib=rb-4.1.0&q=85" 
@@ -411,7 +414,7 @@ const Auth = () => {
         />
         <img 
           src="https://images.unsplash.com/photo-1505330622279-bf7d7fc918f4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwyfHxibG9nZ2VyfGVufDB8fHx8MTc1OTMwODUxOXww&ixlib=rb-4.1.0&q=85" 
-          alt="Blogger" 
+          alt="Russian Blogger" 
           className="absolute top-1/2 right-20 w-36 h-28 object-cover rounded-2xl"
         />
       </div>
