@@ -80,7 +80,7 @@ const Auth = () => {
         <p className="text-gray-400">Войдите в свой аккаунт и продолжайте зарабатывать</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleLoginSubmit} className="space-y-4">
         <div className="relative">
           <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
           <Input
