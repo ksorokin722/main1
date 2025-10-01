@@ -203,8 +203,13 @@ const Stats = () => {
   }, []);
 
   const handleStatClick = (stat, index) => {
+    // Prevent the stat from turning black by ensuring proper state handling
     setSelectedStat(index);
     setShowChart(true);
+    
+    // Prevent any default click behavior that might be causing the blackening issue
+    event?.preventDefault();
+    event?.stopPropagation();
   };
 
   const closeChart = () => {
