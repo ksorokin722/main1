@@ -96,17 +96,15 @@ const Stats = () => {
       label: 'Успешных российских кампаний',
       color: 'from-teal-500 to-cyan-500',
       bgColor: 'from-teal-500/10 to-cyan-500/10',
-      chartData: {
-        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
-        datasets: [{
-          label: 'Успешные кампании',
-          data: [12500, 15200, 17800, 19500, 21200, 22400, 23847],
-          borderColor: 'rgb(20, 184, 166)',
-          backgroundColor: 'rgba(20, 184, 166, 0.1)',
-          tension: 0.4,
-          fill: true
-        }]
-      }
+      chartData: [
+        { month: 'Янв', value: 12500 },
+        { month: 'Фев', value: 15200 },
+        { month: 'Мар', value: 17800 },
+        { month: 'Апр', value: 19500 },
+        { month: 'Май', value: 21200 },
+        { month: 'Июн', value: 22400 },
+        { month: 'Июл', value: 23847 }
+      ]
     }
   ];
 
