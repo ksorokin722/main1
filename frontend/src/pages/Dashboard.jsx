@@ -83,6 +83,16 @@ const Dashboard = () => {
     }, 2000);
   };
 
+  const openCampaignDetails = (campaign) => {
+    setSelectedCampaign(campaign);
+    setShowCampaignDetails(true);
+  };
+
+  const closeCampaignDetails = () => {
+    setShowCampaignDetails(false);
+    setSelectedCampaign(null);
+  };
+
   const getStatusColor = (status) => {
     switch (status) {
       case 'available': return 'text-green-400';
