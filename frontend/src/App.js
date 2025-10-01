@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from './pages/HomePage';
 import Dashboard from './pages/Dashboard';
 import Auth from './pages/Auth';
+import AdvertiserAuth from './pages/AdvertiserAuth';
+import AdvertiserDashboard from './pages/AdvertiserDashboard';
 import { AuthProvider } from './contexts/AuthContext';
 import './App.css';
 
