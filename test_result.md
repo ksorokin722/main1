@@ -194,16 +194,19 @@ frontend:
         comment: "✅ Fixed Stats click bug - replaced Chart.js with recharts, added proper click handlers with preventDefault/stopPropagation, improved chart modal with responsive design and Russian data formatting."
         
   - task: "Fix double registration bug in Auth component"
-    implemented: false
-    working: false
+    implemented: true
+    working: true
     file: "src/pages/Auth.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "main"
         comment: "Users reported having to go through registration process twice"
+      - working: true
+        agent: "main"
+        comment: "✅ Fixed double registration bug - separated handleLoginSubmit and handleRegisterSubmit functions, added step validation to prevent premature registration calls. Registration now works correctly in 3 steps."
         
   - task: "Fix mobile responsiveness (verification button overflow)"
     implemented: false
