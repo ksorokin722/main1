@@ -299,6 +299,29 @@ ${campaign.brand} дарит скидку 30%
                 </div>
               </Card>
 
+              {/* Application Button */}
+              {campaign.status === 'available' && (
+                <Card className="p-6 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20">
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold text-white mb-4">Готовы участвовать в кампании?</h3>
+                    <p className="text-gray-300 mb-6">
+                      После изучения всех деталей кампании, вы можете подать заявку на участие. 
+                      Мы рассмотрим вашу заявку в течение 24 часов.
+                    </p>
+                    <Button 
+                      size="lg" 
+                      className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 px-8 py-3 text-lg font-semibold"
+                      onClick={() => {
+                        // Handle application logic here
+                        alert(`Заявка на участие в кампании "${campaign.title}" отправлена!`);
+                      }}
+                    >
+                      🚀 Подать заявку на участие
+                    </Button>
+                  </div>
+                </Card>
+              )}
+
             </div>
           )}
 
