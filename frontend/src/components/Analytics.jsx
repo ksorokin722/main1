@@ -13,84 +13,41 @@ import {
 const Analytics = () => {
   const [timeRange, setTimeRange] = useState('3m');
   
-  // Моковые данные аналитики
+  // Моковые данные аналитики для recharts
   const analyticsData = {
-    earnings: {
-      labels: ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл'],
-      datasets: [{
-        label: 'Доход (₽)',
-        data: [15000, 22000, 18000, 35000, 28000, 45000, 52000],
-        borderColor: 'rgb(168, 85, 247)',
-        backgroundColor: 'rgba(168, 85, 247, 0.1)',
-        tension: 0.4,
-        fill: true
-      }]
-    },
-    campaigns: {
-      labels: ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл'],
-      datasets: [{
-        label: 'Количество кампаний',
-        data: [3, 5, 4, 8, 6, 10, 12],
-        backgroundColor: [
-          'rgba(34, 197, 94, 0.8)',
-          'rgba(59, 130, 246, 0.8)', 
-          'rgba(168, 85, 247, 0.8)',
-          'rgba(234, 179, 8, 0.8)',
-          'rgba(239, 68, 68, 0.8)',
-          'rgba(6, 182, 212, 0.8)',
-          'rgba(168, 85, 247, 0.8)'
-        ],
-        borderColor: 'rgba(255, 255, 255, 0.2)',
-        borderWidth: 1
-      }]
-    },
-    engagement: {
-      labels: ['Просмотры', 'Лайки', 'Комментарии', 'Репосты'],
-      datasets: [{
-        data: [2300000, 156000, 23000, 18500],
-        backgroundColor: [
-          'rgba(59, 130, 246, 0.8)',
-          'rgba(239, 68, 68, 0.8)',
-          'rgba(34, 197, 94, 0.8)',
-          'rgba(168, 85, 247, 0.8)'
-        ],
-        borderWidth: 2,
-        borderColor: 'rgba(255, 255, 255, 0.1)'
-      }]
-    },
-    platforms: {
-      labels: ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл'],
-      datasets: [
-        {
-          label: 'YouTube',
-          data: [45000, 52000, 48000, 65000, 58000, 72000, 78000],
-          borderColor: 'rgb(239, 68, 68)',
-          backgroundColor: 'rgba(239, 68, 68, 0.1)',
-          tension: 0.4
-        },
-        {
-          label: 'Telegram',
-          data: [25000, 28000, 32000, 35000, 38000, 42000, 45000],
-          borderColor: 'rgb(59, 130, 246)',
-          backgroundColor: 'rgba(59, 130, 246, 0.1)',
-          tension: 0.4
-        },
-        {
-          label: 'RuTube',
-          data: [15000, 18000, 22000, 25000, 28000, 32000, 35000],
-          borderColor: 'rgb(168, 85, 247)',
-          backgroundColor: 'rgba(168, 85, 247, 0.1)',
-          tension: 0.4
-        },
-        {
-          label: 'ВКонтакте',
-          data: [12000, 15000, 18000, 22000, 25000, 28000, 30000],
-          borderColor: 'rgb(99, 102, 241)',
-          backgroundColor: 'rgba(99, 102, 241, 0.1)',
-          tension: 0.4
-        }
-      ]
-    }
+    earnings: [
+      { month: 'янв', earnings: 15000 },
+      { month: 'фев', earnings: 22000 },
+      { month: 'мар', earnings: 18000 },
+      { month: 'апр', earnings: 35000 },
+      { month: 'май', earnings: 28000 },
+      { month: 'июн', earnings: 45000 },
+      { month: 'июл', earnings: 52000 }
+    ],
+    campaigns: [
+      { month: 'янв', campaigns: 3 },
+      { month: 'фев', campaigns: 5 },
+      { month: 'мар', campaigns: 4 },
+      { month: 'апр', campaigns: 8 },
+      { month: 'май', campaigns: 6 },
+      { month: 'июн', campaigns: 10 },
+      { month: 'июл', campaigns: 12 }
+    ],
+    engagement: [
+      { name: 'Просмотры', value: 2300000, color: '#3B82F6' },
+      { name: 'Лайки', value: 156000, color: '#EF4444' },
+      { name: 'Комментарии', value: 23000, color: '#22C55E' },
+      { name: 'Репосты', value: 18500, color: '#A855F7' }
+    ],
+    platforms: [
+      { month: 'янв', YouTube: 45000, Telegram: 25000, RuTube: 15000, ВКонтакте: 12000 },
+      { month: 'фев', YouTube: 52000, Telegram: 28000, RuTube: 18000, ВКонтакте: 15000 },
+      { month: 'мар', YouTube: 48000, Telegram: 32000, RuTube: 22000, ВКонтакте: 18000 },
+      { month: 'апр', YouTube: 65000, Telegram: 35000, RuTube: 25000, ВКонтакте: 22000 },
+      { month: 'май', YouTube: 58000, Telegram: 38000, RuTube: 28000, ВКонтакте: 25000 },
+      { month: 'июн', YouTube: 72000, Telegram: 42000, RuTube: 32000, ВКонтакте: 28000 },
+      { month: 'июл', YouTube: 78000, Telegram: 45000, RuTube: 35000, ВКонтакте: 30000 }
+    ]
   };
 
   const campaignMetrics = [
