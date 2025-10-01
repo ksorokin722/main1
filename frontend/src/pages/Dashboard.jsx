@@ -491,6 +491,13 @@ const Dashboard = () => {
           {activeTab === 'settings' && <ProfileSettings />}
         </main>
       </div>
+
+      {/* Campaign Details Modal */}
+      <CampaignDetails 
+        campaign={selectedCampaign}
+        isOpen={showCampaignDetails}
+        onClose={closeCampaignDetails}
+      />
     </div>
   );
 };
