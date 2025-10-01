@@ -357,23 +357,35 @@ const Dashboard = () => {
                 })}
               </div>
               
-              {campaign.status === 'available' && (
-                <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
-                  Подать заявку
+              <div className="flex items-center space-x-3">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => openCampaignDetails(campaign)}
+                  className="border-gray-600 text-gray-300 hover:border-purple-500 hover:text-purple-400"
+                >
+                  <Eye className="w-4 h-4 mr-2" />
+                  Подробнее
                 </Button>
-              )}
-              {campaign.status === 'applied' && (
-                <Button variant="outline" className="border-yellow-500 text-yellow-400">
-                  <Clock className="w-4 h-4 mr-2" />
-                  Ожидание
-                </Button>
-              )}
-              {campaign.status === 'completed' && (
-                <Button variant="outline" className="border-blue-500 text-blue-400">
-                  <CheckCircle className="w-4 h-4 mr-2" />
-                  Завершено
-                </Button>
-              )}
+                
+                {campaign.status === 'available' && (
+                  <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                    Подать заявку
+                  </Button>
+                )}
+                {campaign.status === 'applied' && (
+                  <Button variant="outline" className="border-yellow-500 text-yellow-400">
+                    <Clock className="w-4 h-4 mr-2" />
+                    Ожидание
+                  </Button>
+                )}
+                {campaign.status === 'completed' && (
+                  <Button variant="outline" className="border-blue-500 text-blue-400">
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    Завершено
+                  </Button>
+                )}
+              </div>
             </div>
           </Card>
         ))}
