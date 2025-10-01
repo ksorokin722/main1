@@ -328,27 +328,30 @@ const Analytics = () => {
         </TabsContent>
 
         <TabsContent value="platforms" className="mt-6">
-          <Card className="p-6 bg-slate-800/50 border-gray-700">
-            <h3 className="text-xl font-bold text-white mb-6">Просмотры по платформам</h3>
-            <div className="h-80">
+          <Card className="p-4 sm:p-6 bg-slate-800/50 border-gray-700">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6">Просмотры по платформам</h3>
+            <div className="h-64 sm:h-80">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={analyticsData.platforms}>
+                <LineChart data={analyticsData.platforms} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(75, 85, 99, 0.3)" />
                   <XAxis 
                     dataKey="month" 
-                    tick={{ fill: 'rgb(156, 163, 175)' }}
+                    tick={{ fill: 'rgb(156, 163, 175)', fontSize: 12 }}
                     axisLine={{ stroke: 'rgba(75, 85, 99, 0.3)' }}
                   />
                   <YAxis 
-                    tick={{ fill: 'rgb(156, 163, 175)' }}
+                    tick={{ fill: 'rgb(156, 163, 175)', fontSize: 12 }}
                     axisLine={{ stroke: 'rgba(75, 85, 99, 0.3)' }}
                   />
                   <Tooltip content={<CustomTooltip />} />
-                  <Legend wrapperStyle={{ color: 'rgb(156, 163, 175)' }} />
-                  <Line type="monotone" dataKey="YouTube" stroke="#EF4444" strokeWidth={2} />
-                  <Line type="monotone" dataKey="Telegram" stroke="#3B82F6" strokeWidth={2} />
-                  <Line type="monotone" dataKey="RuTube" stroke="#A855F7" strokeWidth={2} />
-                  <Line type="monotone" dataKey="ВКонтакте" stroke="#6366F1" strokeWidth={2} />
+                  <Legend 
+                    wrapperStyle={{ color: 'rgb(156, 163, 175)', fontSize: '12px' }} 
+                    iconType="line"
+                  />
+                  <Line type="monotone" dataKey="YouTube" stroke="#EF4444" strokeWidth={2} dot={{ r: 3 }} />
+                  <Line type="monotone" dataKey="Telegram" stroke="#3B82F6" strokeWidth={2} dot={{ r: 3 }} />
+                  <Line type="monotone" dataKey="RuTube" stroke="#A855F7" strokeWidth={2} dot={{ r: 3 }} />
+                  <Line type="monotone" dataKey="ВКонтакте" stroke="#6366F1" strokeWidth={2} dot={{ r: 3 }} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
