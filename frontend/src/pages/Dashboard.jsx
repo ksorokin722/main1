@@ -18,6 +18,8 @@ const Dashboard = () => {
   const { user, logout, updateUser, addLoyaltyPoints } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
+  const [selectedCampaign, setSelectedCampaign] = useState(null);
+  const [showCampaignDetails, setShowCampaignDetails] = useState(false);
   const [notifications, setNotifications] = useState([
     { id: 1, type: 'campaign', title: 'Новая кампания TechNova', message: 'Подходящая кампания для российской аудитории', time: '5 мин назад', unread: true },
     { id: 2, type: 'payment', title: 'Выплата получена', message: '15,000 ₽ зачислено на ваш счет', time: '1 час назад', unread: true },
