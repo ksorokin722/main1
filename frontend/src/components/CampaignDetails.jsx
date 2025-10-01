@@ -398,16 +398,9 @@ ${campaign.brand} дарит скидку 30%
               <Badge className="bg-green-500">{campaign.reward}</Badge>
               <span className="text-gray-400">Дедлайн: {campaign.deadline}</span>
             </div>
-            <div className="flex space-x-3">
-              <Button variant="outline" onClick={onClose}>
-                Закрыть
-              </Button>
-              {campaign.status === 'available' && (
-                <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
-                  Подать заявку
-                </Button>
-              )}
-            </div>
+            <Button variant="outline" onClick={onClose}>
+              Закрыть
+            </Button>
           </div>
         </div>
 
