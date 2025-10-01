@@ -48,17 +48,15 @@ const Stats = () => {
       label: 'Российских брендов',
       color: 'from-blue-500 to-cyan-500',
       bgColor: 'from-blue-500/10 to-cyan-500/10',
-      chartData: {
-        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
-        datasets: [{
-          label: 'Российские бренды',
-          data: [280, 310, 340, 375, 400, 425, 450],
-          borderColor: 'rgb(59, 130, 246)',
-          backgroundColor: 'rgba(59, 130, 246, 0.1)',
-          tension: 0.4,
-          fill: true
-        }]
-      }
+      chartData: [
+        { month: 'Янв', value: 280 },
+        { month: 'Фев', value: 310 },
+        { month: 'Мар', value: 340 },
+        { month: 'Апр', value: 375 },
+        { month: 'Май', value: 400 },
+        { month: 'Июн', value: 425 },
+        { month: 'Июл', value: 450 }
+      ]
     },
     {
       icon: Award,
