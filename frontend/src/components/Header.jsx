@@ -68,6 +68,13 @@ const Header = () => {
             Войти
           </Button>
           <Button 
+            variant="outline"
+            className="border-blue-500 text-blue-400 hover:bg-blue-500/10"
+            onClick={() => window.location.href = '/advertiser/auth'}
+          >
+            Для рекламодателей
+          </Button>
+          <Button 
             className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold px-6 py-2 rounded-full transform hover:scale-105 transition-all duration-200 shadow-lg shadow-purple-500/25"
             onClick={() => window.location.href = '/auth'}
           >
