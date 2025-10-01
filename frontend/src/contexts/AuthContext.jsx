@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
       const userData = await authAPI.login(credentials);
       setUser({
         ...userData,
+        name: userData.name || credentials.email?.split('@')[0] || 'Блогер',
         avatar: userData.avatar || 'https://images.unsplash.com/photo-1494790108755-2616c5e7b37e?w=400&h=400&fit=crop&crop=face',
         socialAccounts: userData.social_accounts || [],
         contactInfo: userData.contact_info || {
