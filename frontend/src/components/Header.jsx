@@ -105,13 +105,6 @@ const Header = () => {
                 Отзывы
               </a>
               <div className="pt-4 space-y-3">
-                <Button
-                  variant="ghost" 
-                  className="w-full text-gray-300 hover:text-purple-400 hover:bg-purple-500/10"
-                  onClick={() => window.location.href = '/auth'}
-                >
-                  Войти
-                </Button>
                 <Button 
                   variant="outline"
                   className="w-full border-blue-500 text-blue-400 hover:bg-blue-500/10"
