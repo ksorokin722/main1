@@ -1,35 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Line, Bar, Doughnut } from 'react-chartjs-2';
+import { 
+  LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
+  XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+} from 'recharts';
 import { Card } from '../components/ui/card';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
 import { 
   TrendingUp, DollarSign, Eye, Heart, Share2, 
   Calendar, BarChart3, Users, Target, Award
 } from 'lucide-react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-} from 'chart.js';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-);
 
 const Analytics = () => {
   const [timeRange, setTimeRange] = useState('3m');
