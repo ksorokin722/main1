@@ -125,11 +125,169 @@ class LoyaltyTransaction(BaseModel):
     reason: str
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+# Helper functions
+def prepare_for_mongo(data):
+    """Convert Python objects to MongoDB-compatible format"""
+    if isinstance(data, dict):
+        for key, value in data.items():
+            if isinstance(value, datetime):
+                data[key] = value.isoformat()
+    return data
+
+def parse_from_mongo(item):
+    """Convert MongoDB data back to Python objects"""
+    if isinstance(item, dict):
+        for key, value in item.items():
+            if isinstance(value, str) and 'T' in value:
+                try:
+                    item[key] = datetime.fromisoformat(value.replace('Z', '+00:00'))
+                except:
+                    pass
+    return item
+
+def hash_password(password: str) -> str:
+    """Simple password hashing"""
+    return hashlib.sha256(password.encode()).hexdigest()
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Ublogger API v1.0"}
 
+# Authentication endpoints
+@api_router.post("/auth/register", response_model=User)
+async def register_user(user_data: UserCreate):
+    # Check if user already exists
+    existing_user = await db.users.find_one({"email": user_data.email})
+    if existing_user:
+        raise HTTPException(status_code=400, detail="User already exists")
+    
+    # Create new user
+    user_dict = user_data.dict()
+    user_dict["password"] = hash_password(user_dict["password"])
+    
+    # Calculate total reach
+    total_reach = sum(account.followers for account in user_data.social_accounts)
+    user_dict["stats"] = UserStats(
+        followers=total_reach,
+        campaigns=0,
+        earnings="0 ₽",
+        completed_campaigns=0,
+        average_rating=0,
+        total_views=0,
+        total_engagement=0
+    ).dict()
+    
+    user_obj = User(**user_dict)
+    user_dict = prepare_for_mongo(user_obj.dict())
+    
+    await db.users.insert_one(user_dict)
+    return user_obj
+
+@api_router.post("/auth/login", response_model=User)
+async def login_user(login_data: UserLogin):
+    user_data = await db.users.find_one({"email": login_data.email})
+    if not user_data:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    
+    if user_data["password"] != hash_password(login_data.password):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    
+    user_data = parse_from_mongo(user_data)
+    return User(**user_data)
+
+# User profile endpoints
+@api_router.get("/user/{user_id}", response_model=User)
+async def get_user(user_id: str):
+    user_data = await db.users.find_one({"id": user_id})
+    if not user_data:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    user_data = parse_from_mongo(user_data)
+    return User(**user_data)
+
+@api_router.put("/user/{user_id}", response_model=User)
+async def update_user(user_id: str, updates: dict):
+    # Update user data
+    await db.users.update_one(
+        {"id": user_id},
+        {"$set": prepare_for_mongo(updates)}
+    )
+    
+    updated_user = await db.users.find_one({"id": user_id})
+    if not updated_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    updated_user = parse_from_mongo(updated_user)
+    return User(**updated_user)
+
+# Campaigns endpoints
+@api_router.get("/campaigns", response_model=List[Campaign])
+async def get_campaigns():
+    campaigns = await db.campaigns.find().to_list(1000)
+    return [Campaign(**campaign) for campaign in campaigns]
+
+@api_router.post("/campaigns", response_model=Campaign)
+async def create_campaign(campaign_data: Campaign):
+    campaign_dict = prepare_for_mongo(campaign_data.dict())
+    await db.campaigns.insert_one(campaign_dict)
+    return campaign_data
+
+# Analytics endpoints
+@api_router.get("/analytics/{user_id}")
+async def get_user_analytics(user_id: str):
+    # Get user's campaign metrics
+    metrics = await db.campaign_metrics.find({"user_id": user_id}).to_list(1000)
+    
+    # Mock analytics data for now
+    return {
+        "earnings": [
+            {"month": "янв", "earnings": 15000},
+            {"month": "фев", "earnings": 22000},
+            {"month": "мар", "earnings": 18000},
+            {"month": "апр", "earnings": 35000},
+            {"month": "май", "earnings": 28000},
+            {"month": "июн", "earnings": 45000},
+            {"month": "июл", "earnings": 52000}
+        ],
+        "campaigns": [
+            {"month": "янв", "campaigns": 3},
+            {"month": "фев", "campaigns": 5},
+            {"month": "мар", "campaigns": 4},
+            {"month": "апр", "campaigns": 8},
+            {"month": "май", "campaigns": 6},
+            {"month": "июн", "campaigns": 10},
+            {"month": "июл", "campaigns": 12}
+        ],
+        "metrics": metrics
+    }
+
+# Loyalty points endpoints
+@api_router.post("/loyalty/{user_id}/add")
+async def add_loyalty_points(user_id: str, points: int, reason: str):
+    # Add loyalty transaction
+    transaction = LoyaltyTransaction(
+        user_id=user_id,
+        points=points,
+        reason=reason
+    )
+    transaction_dict = prepare_for_mongo(transaction.dict())
+    await db.loyalty_transactions.insert_one(transaction_dict)
+    
+    # Update user's loyalty points
+    await db.users.update_one(
+        {"id": user_id},
+        {"$inc": {"loyalty_points": points}}
+    )
+    
+    return {"message": f"Added {points} loyalty points for {reason}"}
+
+@api_router.get("/loyalty/{user_id}/transactions")
+async def get_loyalty_transactions(user_id: str):
+    transactions = await db.loyalty_transactions.find({"user_id": user_id}).to_list(1000)
+    return [LoyaltyTransaction(**transaction) for transaction in transactions]
+
+# Status check endpoints (existing)
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
     status_dict = input.dict()
