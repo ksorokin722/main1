@@ -61,13 +61,6 @@ const Header = () => {
         {/* Desktop CTA Buttons */}
         <div className="hidden md:flex items-center space-x-4">
           <Button 
-            variant="ghost" 
-            className="text-gray-300 hover:text-purple-400 hover:bg-purple-500/10"
-            onClick={() => window.location.href = '/auth'}
-          >
-            Войти
-          </Button>
-          <Button 
             variant="outline"
             className="border-blue-500 text-blue-400 hover:bg-blue-500/10"
             onClick={() => window.location.href = '/advertiser/auth'}
