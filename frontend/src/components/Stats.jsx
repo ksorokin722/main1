@@ -64,17 +64,15 @@ const Stats = () => {
       label: 'Эксклюзивных проектов РФ',
       color: 'from-orange-500 to-red-500',
       bgColor: 'from-orange-500/10 to-red-500/10',
-      chartData: {
-        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
-        datasets: [{
-          label: 'Эксклюзивные проекты',
-          data: [45, 52, 61, 68, 75, 82, 89],
-          borderColor: 'rgb(249, 115, 22)',
-          backgroundColor: 'rgba(249, 115, 22, 0.1)',
-          tension: 0.4,
-          fill: true
-        }]
-      }
+      chartData: [
+        { month: 'Янв', value: 45 },
+        { month: 'Фев', value: 52 },
+        { month: 'Мар', value: 61 },
+        { month: 'Апр', value: 68 },
+        { month: 'Май', value: 75 },
+        { month: 'Июн', value: 82 },
+        { month: 'Июл', value: 89 }
+      ]
     },
     {
       icon: TrendingUp,
