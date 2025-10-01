@@ -32,17 +32,15 @@ const Stats = () => {
       label: 'Общий российский доход',
       color: 'from-green-500 to-emerald-500',
       bgColor: 'from-green-500/10 to-emerald-500/10',
-      chartData: {
-        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
-        datasets: [{
-          label: 'Доход (млрд ₽)',
-          data: [8.2, 9.1, 9.8, 10.5, 11.2, 11.8, 12.5],
-          borderColor: 'rgb(34, 197, 94)',
-          backgroundColor: 'rgba(34, 197, 94, 0.1)',
-          tension: 0.4,
-          fill: true
-        }]
-      }
+      chartData: [
+        { month: 'Янв', value: 8.2 },
+        { month: 'Фев', value: 9.1 },
+        { month: 'Мар', value: 9.8 },
+        { month: 'Апр', value: 10.5 },
+        { month: 'Май', value: 11.2 },
+        { month: 'Июн', value: 11.8 },
+        { month: 'Июл', value: 12.5 }
+      ]
     },
     {
       icon: Target,
