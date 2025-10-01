@@ -250,6 +250,18 @@ frontend:
         agent: "main"
         comment: "✅ Fixed username display bug - improved name handling in AuthContext with fallbacks (email prefix or 'Блогер'), added null safety checks in Dashboard components. Now shows proper names like 'Алексей Иванов' instead of generic 'Пользователь'."
 
+  - task: "Campaign details modal functionality with three-tab system"
+    implemented: true
+    working: "NA"
+    file: "src/components/CampaignDetails.jsx, src/pages/Dashboard.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "New campaign details functionality needs testing. Features include: modal with campaign details, three tabs (Детали кампании, Креативы, Шаблоны текстов), copy functionality for text templates, and detailed campaign information for Russian bloggers."
+
 metadata:
   created_by: "main_agent"
   version: "1.0"
