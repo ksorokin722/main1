@@ -648,11 +648,188 @@ const AdvertiserDashboard = () => {
 
           {/* Заглушки для других табов */}
           <TabsContent value="campaigns" className="mt-6">
-            <Card className="p-8 bg-slate-800/50 border-gray-700 text-center">
-              <Target className="w-16 h-16 text-purple-400 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Управление кампаниями</h3>
-              <p className="text-gray-400">Создание, модерация и мониторинг рекламных кампаний</p>
-            </Card>
+            <div className="space-y-6">
+              
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold text-white">Мои кампании</h2>
+                  <p className="text-gray-400">Управление активными рекламными кампаниями</p>
+                </div>
+                <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Создать кампанию
+                </Button>
+              </div>
+
+              {/* Активная кампания: TechNova X1 */}
+              <Card className="p-6 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-3 mb-3">
+                      <h3 className="text-xl font-bold text-white">Новая линейка смартфонов TechNova X1</h3>
+                      <Badge className="bg-green-500 text-white">Активная</Badge>
+                    </div>
+                    <p className="text-gray-300 mb-4">Продвижение революционных смартфонов для российского рынка</p>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                      <div>
+                        <p className="text-lg font-bold text-blue-400">12</p>
+                        <p className="text-xs text-gray-400">Заявок получено</p>
+                      </div>
+                      <div>
+                        <p className="text-lg font-bold text-green-400">8</p>
+                        <p className="text-xs text-gray-400">Одобрено</p>
+                      </div>
+                      <div>
+                        <p className="text-lg font-bold text-yellow-400">3</p>
+                        <p className="text-xs text-gray-400">На модерации</p>
+                      </div>
+                      <div>
+                        <p className="text-lg font-bold text-purple-400">1.2M</p>
+                        <p className="text-xs text-gray-400">Охват</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex lg:flex-col space-x-3 lg:space-x-0 lg:space-y-2">
+                    <Button size="sm" className="bg-blue-500 hover:bg-blue-600">
+                      Управлять
+                    </Button>
+                    <Button size="sm" variant="outline" className="border-gray-600">
+                      Статистика
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Блогеры по кампании TechNova */}
+              <Card className="p-6 bg-slate-800/50 border-gray-700">
+                <h3 className="text-lg font-bold text-white mb-4">Блогеры в кампании TechNova X1</h3>
+                
+                <div className="space-y-4">
+                  
+                  {/* Одобренный блогер */}
+                  <div className="p-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-xl">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <img 
+                          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face"
+                          alt="Игорь Новиков"
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                        <div>
+                          <h4 className="font-bold text-white">Игорь Новиков</h4>
+                          <p className="text-green-400 text-sm">@tech_igor • 89K подписчиков</p>
+                          <p className="text-xs text-gray-400">Контент опубликован • 67K просмотров</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <Badge className="bg-green-500 text-white">✓ Одобрено</Badge>
+                        <Button size="sm" variant="outline" className="border-green-500 text-green-400">
+                          <Eye className="w-4 h-4 mr-1" />
+                          Посмотреть пост
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Блогер на модерации */}
+                  <div className="p-4 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 rounded-xl">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <img 
+                          src="https://images.unsplash.com/photo-1494790108755-2616c5e7b37e?w=50&h=50&fit=crop&crop=face"
+                          alt="Анна Петрова"
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                        <div>
+                          <h4 className="font-bold text-white">Анна Петрова</h4>
+                          <p className="text-yellow-400 text-sm">@anna_beauty • 125K подписчиков</p>
+                          <p className="text-xs text-gray-400">Контент загружен • Ожидает модерации</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Badge className="bg-yellow-500 text-black">⏳ Модерация</Badge>
+                        <Button size="sm" className="bg-green-500 hover:bg-green-600">
+                          ✓ Принять
+                        </Button>
+                        <Button size="sm" className="bg-red-500 hover:bg-red-600">
+                          ✗ Отклонить
+                        </Button>
+                        <Button size="sm" variant="outline" className="border-blue-500 text-blue-400">
+                          💬 Комментарий
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Блогер с требованием доработки */}
+                  <div className="p-4 bg-gradient-to-r from-orange-500/10 to-red-500/10 border border-orange-500/20 rounded-xl">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <img 
+                          src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=50&h=50&fit=crop&crop=face"
+                          alt="Максим Гейминг"
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                        <div>
+                          <h4 className="font-bold text-white">Максим Гейминг</h4>
+                          <p className="text-orange-400 text-sm">@max_gamer • 167K подписчиков</p>
+                          <p className="text-xs text-gray-400">Требует доработки • "Добавьте больше информации о камере"</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Badge className="bg-orange-500 text-white">🔄 Доработка</Badge>
+                        <Button size="sm" variant="outline" className="border-orange-500 text-orange-400">
+                          <MessageCircle className="w-4 h-4 mr-1" />
+                          Написать
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Новая заявка */}
+                  <div className="p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-xl">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <img 
+                          src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face"
+                          alt="Мария Волкова"
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                        <div>
+                          <h4 className="font-bold text-white">Мария Волкова</h4>
+                          <p className="text-blue-400 text-sm">@maria_travel • 156K подписчиков</p>
+                          <p className="text-xs text-gray-400">Новая заявка • 2 часа назад</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Badge className="bg-blue-500 text-white">🆕 Новая заявка</Badge>
+                        <Button size="sm" className="bg-green-500 hover:bg-green-600">
+                          ✓ Принять
+                        </Button>
+                        <Button size="sm" variant="outline" className="border-red-500 text-red-400">
+                          ✗ Отклонить
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div className="mt-6 p-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl border border-purple-500/20">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-semibold text-white">Прогресс кампании</p>
+                      <p className="text-sm text-gray-400">8 из 12 блогеров одобрены</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-lg font-bold text-purple-400">67%</p>
+                      <p className="text-xs text-gray-400">готовности</p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+            </div>
           </TabsContent>
 
           <TabsContent value="analytics" className="mt-6">
