@@ -190,10 +190,13 @@ async def login_user(login_data: UserLogin):
     if not user_data:
         raise HTTPException(status_code=401, detail="Invalid credentials")
     
-    if user_data["password"] != hash_password(login_data.password):
+    # Check password before parsing (password field exists in raw DB data)
+    if user_data.get("password") != hash_password(login_data.password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
     
     user_data = parse_from_mongo(user_data)
+    # Remove password from response data for security
+    user_data.pop("password", None)
     return User(**user_data)
 
 # User profile endpoints
