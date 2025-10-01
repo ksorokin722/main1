@@ -120,6 +120,13 @@ const Header = () => {
                   Войти
                 </Button>
                 <Button 
+                  variant="outline"
+                  className="w-full border-blue-500 text-blue-400 hover:bg-blue-500/10"
+                  onClick={() => window.location.href = '/advertiser/auth'}
+                >
+                  Для рекламодателей
+                </Button>
+                <Button 
                   className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold"
                   onClick={() => window.location.href = '/auth'}
                 >
