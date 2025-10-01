@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
       // Fallback to mock data for development
       setUser({
         id: '1',
-        name: credentials.name || 'Пользователь',
+        name: credentials.name || credentials.email?.split('@')[0] || 'Блогер',
         email: credentials.email,
         avatar: 'https://images.unsplash.com/photo-1494790108755-2616c5e7b37e?w=400&h=400&fit=crop&crop=face',
         isVerified: false,
