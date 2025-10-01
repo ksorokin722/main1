@@ -108,44 +108,20 @@ const Stats = () => {
     }
   ];
 
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: false
-      },
-      tooltip: {
-        backgroundColor: 'rgba(30, 41, 59, 0.9)',
-        titleColor: 'rgb(255, 255, 255)',
-        bodyColor: 'rgb(255, 255, 255)',
-        borderColor: 'rgba(168, 85, 247, 0.5)',
-        borderWidth: 1
-      }
-    },
-    scales: {
-      x: {
-        ticks: {
-          color: 'rgb(156, 163, 175)'
-        },
-        grid: {
-          color: 'rgba(75, 85, 99, 0.3)'
-        }
-      },
-      y: {
-        ticks: {
-          color: 'rgb(156, 163, 175)'
-        },
-        grid: {
-          color: 'rgba(75, 85, 99, 0.3)'
-        }
-      }
-    },
-    elements: {
-      point: {
-        radius: 6,
-        hoverRadius: 8
-      }
+  // Кастомный тултип для recharts
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      const data = payload[0];
+      return (
+        <div className="bg-slate-800 p-3 rounded-lg border border-gray-600 shadow-lg">
+          <p className="text-gray-300 text-sm">{`${label}`}</p>
+          <p className="text-purple-400 font-semibold">
+            {`Значение: ${typeof data.value === 'number' ? data.value.toLocaleString() : data.value}`}
+          </p>
+        </div>
+      );
     }
+    return null;
   };
 
   useEffect(() => {
