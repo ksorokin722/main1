@@ -80,17 +80,15 @@ const Stats = () => {
       label: 'Средняя стоимость CPV (РФ)',
       color: 'from-indigo-500 to-purple-500',
       bgColor: 'from-indigo-500/10 to-purple-500/10',
-      chartData: {
-        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
-        datasets: [{
-          label: 'CPV (₽)',
-          data: [0.72, 0.75, 0.78, 0.80, 0.82, 0.83, 0.85],
-          borderColor: 'rgb(99, 102, 241)',
-          backgroundColor: 'rgba(99, 102, 241, 0.1)',
-          tension: 0.4,
-          fill: true
-        }]
-      }
+      chartData: [
+        { month: 'Янв', value: 0.72 },
+        { month: 'Фев', value: 0.75 },
+        { month: 'Мар', value: 0.78 },
+        { month: 'Апр', value: 0.80 },
+        { month: 'Май', value: 0.82 },
+        { month: 'Июн', value: 0.83 },
+        { month: 'Июл', value: 0.85 }
+      ]
     },
     {
       icon: Zap,
