@@ -270,9 +270,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Fix Analytics component to use recharts"
-    - "Fix Stats section click bug"
-    - "Fix double registration bug"
+    - "Campaign details modal functionality with three-tab system"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
