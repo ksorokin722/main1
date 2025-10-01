@@ -124,7 +124,7 @@ const Dashboard = () => {
         <div className="flex flex-col lg:flex-row lg:items-start justify-between mb-6 space-y-4 lg:space-y-0 lg:space-x-6">
           <div className="flex-1 min-w-0">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-2 break-words">
-              Добро пожаловать, {user.name}!
+              Добро пожаловать, {user?.name || 'Блогер'}!
             </h2>
             <p className="text-gray-300 text-sm sm:text-base">Готовы зарабатывать больше? Вот ваша российская статистика</p>
           </div>
