@@ -14,29 +14,23 @@ BACKEND_URL = "https://ublogger.preview.emergentagent.com/api"
 
 # Test data - realistic Russian blogger data
 test_user_data = {
-    "name": "Анна Петрова",
-    "email": "anna.petrova@example.com", 
-    "password": "SecurePass123!",
-    "phone": "+7 (925) 123-45-67",
+    "name": "Елена Смирнова",
+    "email": "elena.smirnova@example.com", 
+    "password": "NewPass789!",
+    "phone": "+7 (903) 555-12-34",
     "social_accounts": [
         {
-            "id": "anna_petrova_vk",
-            "name": "VK - Анна Петрова",
-            "followers": 85000,
-            "platform_url": "https://vk.com/anna_petrova_blog"
-        },
-        {
-            "id": "anna_petrova_tg",
-            "name": "Telegram - Анна о красоте",
-            "followers": 42000,
-            "platform_url": "https://t.me/anna_beauty_blog"
+            "id": "elena_instagram",
+            "name": "Instagram - Елена Lifestyle",
+            "followers": 95000,
+            "platform_url": "https://instagram.com/elena_lifestyle"
         }
     ]
 }
 
 test_login_data = {
-    "email": "anna.petrova@example.com",
-    "password": "SecurePass123!"
+    "email": "elena.smirnova@example.com",
+    "password": "NewPass789!"
 }
 
 def print_test_header(test_name):
