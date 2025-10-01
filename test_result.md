@@ -224,16 +224,31 @@ frontend:
         comment: "✅ Fixed mobile responsiveness - improved welcome section layout with proper flex controls, added min-w-0 and break-words for text overflow, whitespace-nowrap for buttons, added overflow-x-hidden to main container."
         
   - task: "Add wallet/balance component to Dashboard"
-    implemented: false
-    working: false
+    implemented: true
+    working: true
     file: "src/pages/Dashboard.jsx"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "main" 
         comment: "Need wallet section for users to view and manage their balance"
+      - working: true
+        agent: "main"
+        comment: "✅ Added wallet component to Dashboard - displays available balance (127,500 ₽), pending amount (15,000 ₽), loyalty points, withdrawal button, and last payout information in Russian format."
+        
+  - task: "Fix username display bug (showed 'Пользователь' instead of real name)"
+    implemented: true
+    working: true
+    file: "src/contexts/AuthContext.jsx, src/pages/Dashboard.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "✅ Fixed username display bug - improved name handling in AuthContext with fallbacks (email prefix or 'Блогер'), added null safety checks in Dashboard components. Now shows proper names like 'Алексей Иванов' instead of generic 'Пользователь'."
 
 metadata:
   created_by: "main_agent"
