@@ -98,48 +98,32 @@ const Analytics = () => {
     }
   ];
 
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        labels: {
-          color: 'rgb(156, 163, 175)'
-        }
-      }
-    },
-    scales: {
-      x: {
-        ticks: {
-          color: 'rgb(156, 163, 175)'
-        },
-        grid: {
-          color: 'rgba(75, 85, 99, 0.3)'
-        }
-      },
-      y: {
-        ticks: {
-          color: 'rgb(156, 163, 175)'
-        },
-        grid: {
-          color: 'rgba(75, 85, 99, 0.3)'
-        }
-      }
-    }
+  // Цвета для графиков
+  const colors = {
+    primary: '#A855F7',
+    secondary: '#06B6D4', 
+    success: '#22C55E',
+    danger: '#EF4444',
+    warning: '#F59E0B',
+    info: '#3B82F6'
   };
 
-  const doughnutOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'right',
-        labels: {
-          color: 'rgb(156, 163, 175)',
-          usePointStyle: true,
-          padding: 20
-        }
-      }
-    },
-    maintainAspectRatio: false
+  // Кастомный тултип
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-slate-800 p-3 rounded-lg border border-gray-600 shadow-lg">
+          <p className="text-gray-300 text-sm">{`${label}`}</p>
+          {payload.map((pld, index) => (
+            <p key={index} style={{ color: pld.color }} className="font-semibold">
+              {`${pld.dataKey}: ${typeof pld.value === 'number' ? pld.value.toLocaleString() : pld.value}`}
+              {pld.dataKey === 'earnings' && ' ₽'}
+            </p>
+          ))}
+        </div>
+      );
+    }
+    return null;
   };
 
   return (
