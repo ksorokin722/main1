@@ -89,6 +89,7 @@ export const AuthProvider = ({ children }) => {
       
       setUser({
         ...registeredUser,
+        name: registeredUser.name || userData.name || userData.email?.split('@')[0] || 'Блогер',
         avatar: registeredUser.avatar || 'https://images.unsplash.com/photo-1494790108755-2616c5e7b37e?w=400&h=400&fit=crop&crop=face',
         socialAccounts: registeredUser.social_accounts || [],
         contactInfo: registeredUser.contact_info || {
