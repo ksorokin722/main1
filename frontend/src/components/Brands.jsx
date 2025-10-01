@@ -167,7 +167,9 @@ const Brands = () => {
 
           {/* CTA Section */}
           <div className="text-center">
-            <Button className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold px-8 py-4 rounded-full transform hover:scale-105 transition-all duration-200 shadow-2xl shadow-blue-500/25 mr-4">
+            <Button className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold px-8 py-4 rounded-full transform hover:scale-105 transition-all duration-200 shadow-2xl shadow-blue-500/25 mr-4"
+              onClick={() => window.location.href = '/auth'}
+            >
               Стать партнером
             </Button>
             <Button variant="outline" className="border-2 border-purple-500/30 text-purple-300 hover:text-white hover:bg-purple-500/10 px-8 py-4 rounded-full">
