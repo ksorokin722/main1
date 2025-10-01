@@ -188,6 +188,44 @@ const Dashboard = () => {
         </div>
       </div>
 
+      {/* Wallet Section */}
+      <Card className="p-6 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-3">
+            <DollarSign className="w-8 h-8 text-green-400" />
+            <div>
+              <h3 className="text-xl font-bold text-white">Кошелек</h3>
+              <p className="text-gray-300">Ваши средства и баланс</p>
+            </div>
+          </div>
+          <Button className="bg-green-500 hover:bg-green-600 text-white">
+            Вывести средства
+          </Button>
+        </div>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="text-center p-4 bg-white/5 rounded-2xl">
+            <div className="text-2xl font-black text-green-400 mb-2">127,500 ₽</div>
+            <div className="text-sm text-gray-400">Доступно к выводу</div>
+          </div>
+          <div className="text-center p-4 bg-white/5 rounded-2xl">
+            <div className="text-2xl font-black text-yellow-400 mb-2">15,000 ₽</div>
+            <div className="text-sm text-gray-400">В процессе</div>
+          </div>
+          <div className="text-center p-4 bg-white/5 rounded-2xl">
+            <div className="text-2xl font-black text-purple-400 mb-2">{user?.loyaltyPoints || 0}</div>
+            <div className="text-sm text-gray-400">Баллов лояльности</div>
+          </div>
+        </div>
+        
+        <div className="mt-6 p-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-2xl">
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-green-300">Последняя выплата:</span>
+            <span className="text-white font-semibold">25,000 ₽ • 15 янв 2025</span>
+          </div>
+        </div>
+      </Card>
+
       {/* Recent Activities */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8">
         <Card className="p-4 md:p-6 bg-slate-800/50 border-gray-700">
