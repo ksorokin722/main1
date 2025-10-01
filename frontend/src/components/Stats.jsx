@@ -257,7 +257,11 @@ const Stats = () => {
                   isVisible ? 'animate-fadeInUp' : 'opacity-0'
                 }`}
                 style={{ animationDelay: `${index * 0.1}s` }}
-                onClick={() => handleStatClick(stat, index)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation(); 
+                  handleStatClick(stat, index);
+                }}
               >
                 {/* Card Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-2xl backdrop-blur-sm border border-gray-700/50 group-hover:border-purple-500/30 transition-all duration-300"></div>
