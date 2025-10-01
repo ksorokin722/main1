@@ -164,7 +164,7 @@ async def register_user(user_data: UserCreate):
     
     # Create new user
     user_dict = user_data.dict()
-    user_dict["password"] = hash_password(user_dict["password"])
+    hashed_password = hash_password(user_dict["password"])
     
     # Calculate total reach
     total_reach = sum(account.followers for account in user_data.social_accounts)
@@ -178,10 +178,15 @@ async def register_user(user_data: UserCreate):
         total_engagement=0
     ).dict()
     
+    # Remove password from user_dict before creating User object
+    user_dict.pop("password")
     user_obj = User(**user_dict)
-    user_dict = prepare_for_mongo(user_obj.dict())
     
-    await db.users.insert_one(user_dict)
+    # Prepare for mongo and add password back for storage
+    user_dict_for_db = prepare_for_mongo(user_obj.dict())
+    user_dict_for_db["password"] = hashed_password
+    
+    await db.users.insert_one(user_dict_for_db)
     return user_obj
 
 @api_router.post("/auth/login", response_model=User)
