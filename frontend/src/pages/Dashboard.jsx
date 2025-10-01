@@ -120,21 +120,23 @@ const Dashboard = () => {
   const renderOverview = () => (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-3xl p-6 md:p-8">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-6 space-y-4 lg:space-y-0">
-          <div>
-            <h2 className="text-2xl md:text-3xl font-black text-white mb-2">Добро пожаловать, {user.name}!</h2>
-            <p className="text-gray-300">Готовы зарабатывать больше? Вот ваша российская статистика</p>
+      <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-3xl p-4 sm:p-6 md:p-8 overflow-hidden">
+        <div className="flex flex-col lg:flex-row lg:items-start justify-between mb-6 space-y-4 lg:space-y-0 lg:space-x-6">
+          <div className="flex-1 min-w-0">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-2 break-words">
+              Добро пожаловать, {user.name}!
+            </h2>
+            <p className="text-gray-300 text-sm sm:text-base">Готовы зарабатывать больше? Вот ваша российская статистика</p>
           </div>
           {!user.isVerified && (
-            <div className="w-full lg:w-auto">
+            <div className="w-full lg:w-auto lg:flex-shrink-0">
               <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-2 mb-2">
-                <AlertCircle className="w-5 h-5 text-yellow-400" />
+                <AlertCircle className="w-5 h-5 text-yellow-400 flex-shrink-0" />
                 <span className="text-yellow-400 font-medium text-sm sm:text-base">Верификация не пройдена</span>
               </div>
               <Button 
                 onClick={handleVerification}
-                className="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-sm sm:text-base"
+                className="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-sm sm:text-base whitespace-nowrap"
               >
                 Пройти верификацию
               </Button>
