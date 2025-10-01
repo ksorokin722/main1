@@ -179,16 +179,19 @@ frontend:
         comment: "✅ Fixed Analytics component - replaced Chart.js with recharts. Updated all chart types: LineChart for earnings/platforms, BarChart for campaigns, PieChart for engagement. Added custom tooltips and proper Russian formatting."
         
   - task: "Fix Stats section click bug (should show growth charts)"
-    implemented: false
-    working: false
+    implemented: true
+    working: true
     file: "src/components/Stats.jsx"
     stuck_count: 0
     priority: "high" 
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "main"
         comment: "Stats click should show growth chart, may be turning elements black instead"
+      - working: true
+        agent: "main"
+        comment: "✅ Fixed Stats click bug - replaced Chart.js with recharts, added proper click handlers with preventDefault/stopPropagation, improved chart modal with responsive design and Russian data formatting."
         
   - task: "Fix double registration bug in Auth component"
     implemented: false
