@@ -318,6 +318,41 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+@app.on_event("startup")
+async def startup_event():
+    # Add sample campaigns if none exist
+    campaigns_count = await db.campaigns.count_documents({})
+    if campaigns_count == 0:
+        sample_campaigns = [
+            {
+                "id": str(uuid.uuid4()),
+                "title": "Новая линейка российских смартфонов TechNova X1",
+                "brand": "TechNova Russia",
+                "reward": "15,000 ₽",
+                "deadline": "15 фев 2025",
+                "status": "available",
+                "description": "Обзор новых функций смартфона для российской Tech-аудитории",
+                "requirements": "Tech-блогеры с российской аудиторией 50K+",
+                "platforms": ["youtube", "rutube"],
+                "created_at": datetime.now(timezone.utc).isoformat()
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "title": "Весенняя коллекция российского бренда FashionSpace",
+                "brand": "FashionSpace РФ",
+                "reward": "20,000 ₽",
+                "deadline": "1 мар 2025",
+                "status": "available",
+                "description": "Демонстрация новой коллекции весна-лето для российского рынка",
+                "requirements": "Fashion-блогеры, российская женская аудитория",
+                "platforms": ["vk", "telegram"],
+                "created_at": datetime.now(timezone.utc).isoformat()
+            }
+        ]
+        
+        await db.campaigns.insert_many(sample_campaigns)
+        logger.info("Sample campaigns added to database")
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
