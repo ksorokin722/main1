@@ -148,15 +148,43 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  const updateUser = (updates) => {
-    setUser(prev => ({ ...prev, ...updates }));
+  const updateUser = async (updates) => {
+    try {
+      if (user?.id) {
+        const updatedUser = await userAPI.updateUser(user.id, updates);
+        setUser(prev => ({ ...prev, ...updatedUser }));
+      } else {
+        setUser(prev => ({ ...prev, ...updates }));
+      }
+    } catch (error) {
+      console.error('Update user error:', error);
+      // Fallback to local update
+      setUser(prev => ({ ...prev, ...updates }));
+    }
   };
 
-  const addLoyaltyPoints = (points, reason) => {
-    setUser(prev => ({
-      ...prev,
-      loyaltyPoints: prev.loyaltyPoints + points
-    }));
+  const addLoyaltyPoints = async (points, reason) => {
+    try {
+      if (user?.id) {
+        await loyaltyAPI.addPoints(user.id, points, reason);
+        setUser(prev => ({
+          ...prev,
+          loyaltyPoints: prev.loyaltyPoints + points
+        }));
+      } else {
+        setUser(prev => ({
+          ...prev,
+          loyaltyPoints: prev.loyaltyPoints + points
+        }));
+      }
+    } catch (error) {
+      console.error('Add loyalty points error:', error);
+      // Fallback to local update
+      setUser(prev => ({
+        ...prev,
+        loyaltyPoints: prev.loyaltyPoints + points
+      }));
+    }
   };
 
   return (
