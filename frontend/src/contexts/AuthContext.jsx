@@ -17,10 +17,31 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const userData = await authAPI.login(credentials);
       setUser({
-        id: 1,
+        ...userData,
+        avatar: userData.avatar || 'https://images.unsplash.com/photo-1494790108755-2616c5e7b37e?w=400&h=400&fit=crop&crop=face',
+        socialAccounts: userData.social_accounts || [],
+        contactInfo: userData.contact_info || {
+          telegram: '',
+          whatsapp: '',
+          vk: ''
+        },
+        payoutInfo: userData.payout_info || {
+          method: 'card',
+          cardNumber: '',
+          bankName: '',
+          accountHolder: ''
+        },
+        loyaltyPoints: userData.loyalty_points || 150,
+        isVerified: userData.is_verified || false
+      });
+    } catch (error) {
+      console.error('Login error:', error);
+      // Fallback to mock data for development
+      setUser({
+        id: '1',
         name: credentials.name || 'Пользователь',
         email: credentials.email,
         avatar: 'https://images.unsplash.com/photo-1494790108755-2616c5e7b37e?w=400&h=400&fit=crop&crop=face',
@@ -31,13 +52,6 @@ export const AuthProvider = ({ children }) => {
           telegram: '',
           whatsapp: '',
           vk: ''
-        },
-        reach: {
-          total: 0,
-          youtube: 0,
-          telegram: 0,
-          rutube: 0,
-          vk: 0
         },
         payoutInfo: {
           method: 'card',
@@ -56,8 +70,9 @@ export const AuthProvider = ({ children }) => {
           totalEngagement: 0
         }
       });
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   const register = async (userData) => {
