@@ -277,7 +277,29 @@ const Stats = () => {
             </div>
             
             <div className="h-80">
-              <Line data={statsData[selectedStat].chartData} options={chartOptions} />
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={statsData[selectedStat].chartData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(75, 85, 99, 0.3)" />
+                  <XAxis 
+                    dataKey="month" 
+                    tick={{ fill: 'rgb(156, 163, 175)' }}
+                    axisLine={{ stroke: 'rgba(75, 85, 99, 0.3)' }}
+                  />
+                  <YAxis 
+                    tick={{ fill: 'rgb(156, 163, 175)' }}
+                    axisLine={{ stroke: 'rgba(75, 85, 99, 0.3)' }}
+                  />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Line 
+                    type="monotone" 
+                    dataKey="value" 
+                    stroke="rgb(168, 85, 247)"
+                    strokeWidth={3}
+                    dot={{ fill: 'rgb(168, 85, 247)', strokeWidth: 2, r: 6 }}
+                    activeDot={{ r: 8, fill: 'rgb(168, 85, 247)' }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
             
             <div className="mt-6 p-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-2xl border border-purple-500/20">
