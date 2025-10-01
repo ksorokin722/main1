@@ -105,10 +105,17 @@ const Header = () => {
                 Отзывы
               </a>
               <div className="pt-4 space-y-3">
-                <Button variant="ghost" className="w-full text-gray-300 hover:text-purple-400 hover:bg-purple-500/10">
+                <Button
+                  variant="ghost" 
+                  className="w-full text-gray-300 hover:text-purple-400 hover:bg-purple-500/10"
+                  onClick={() => window.location.href = '/auth'}
+                >
                   Войти
                 </Button>
-                <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold">
+                <Button 
+                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold"
+                  onClick={() => window.location.href = '/auth'}
+                >
                   Начать зарабатывать
                 </Button>
               </div>
