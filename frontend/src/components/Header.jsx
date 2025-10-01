@@ -58,22 +58,22 @@ const Header = () => {
             </a>
           </div>
 
-          {/* Desktop CTA Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button 
-              variant="ghost" 
-              className="text-gray-300 hover:text-purple-400 hover:bg-purple-500/10"
-              onClick={() => window.location.href = '/auth'}
-            >
-              Войти
-            </Button>
-            <Button 
-              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold px-6 py-2 rounded-full transform hover:scale-105 transition-all duration-200 shadow-lg shadow-purple-500/25"
-              onClick={() => window.location.href = '/auth'}
-            >
-              Начать зарабатывать
-            </Button>
-          </div>
+        {/* Desktop CTA Buttons */}
+        <div className="hidden md:flex items-center space-x-4">
+          <Button 
+            variant="ghost" 
+            className="text-gray-300 hover:text-purple-400 hover:bg-purple-500/10"
+            onClick={() => window.location.href = '/auth'}
+          >
+            Войти
+          </Button>
+          <Button 
+            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold px-6 py-2 rounded-full transform hover:scale-105 transition-all duration-200 shadow-lg shadow-purple-500/25"
+            onClick={() => window.location.href = '/auth'}
+          >
+            Начать зарабатывать
+          </Button>
+        </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
