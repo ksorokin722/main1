@@ -4,56 +4,58 @@ import { useAuth } from '../contexts/AuthContext';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
+import Analytics from '../components/Analytics';
+import ProfileSettings from '../pages/ProfileSettings';
 import { 
   User, Settings, LogOut, TrendingUp, DollarSign, Users, 
   MessageCircle, Youtube, Video, Bell, Award, CheckCircle, 
   AlertCircle, Sparkles, Target, BarChart3, Calendar,
-  PlayCircle, Eye, Heart, Share2, Clock, ArrowRight
+  PlayCircle, Eye, Heart, Share2, Clock, ArrowRight, Gift
 } from 'lucide-react';
 
 const Dashboard = () => {
-  const { user, logout, updateUser } = useAuth();
+  const { user, logout, updateUser, addLoyaltyPoints } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
   const [notifications, setNotifications] = useState([
-    { id: 1, type: 'campaign', title: 'Новая кампания TechNova', message: 'Подходящая кампания для вашей аудитории', time: '5 мин назад', unread: true },
+    { id: 1, type: 'campaign', title: 'Новая кампания TechNova', message: 'Подходящая кампания для российской аудитории', time: '5 мин назад', unread: true },
     { id: 2, type: 'payment', title: 'Выплата получена', message: '15,000 ₽ зачислено на ваш счет', time: '1 час назад', unread: true },
-    { id: 3, type: 'milestone', title: 'Поздравляем!', message: 'Вы достигли 10K подписчиков!', time: '3 часа назад', unread: false }
+    { id: 3, type: 'milestone', title: 'Поздравляем!', message: 'Вы достигли 10K российских подписчиков!', time: '3 часа назад', unread: false }
   ]);
 
   const [campaigns] = useState([
     {
       id: 1,
-      title: 'Новая линейка смартфонов TechNova X1',
-      brand: 'TechNova',
+      title: 'Новая линейка российских смартфонов TechNova X1',
+      brand: 'TechNova Russia',
       reward: '15,000 ₽',
       deadline: '15 фев 2025',
       status: 'available',
-      description: 'Обзор новых функций смартфона для Tech-аудитории',
-      requirements: 'Tech-блогеры с аудиторией 50K+',
-      platforms: ['youtube', 'telegram']
+      description: 'Обзор новых функций смартфона для российской Tech-аудитории',
+      requirements: 'Tech-блогеры с российской аудиторией 50K+',
+      platforms: ['youtube', 'rutube']
     },
     {
       id: 2,
-      title: 'Весенняя коллекция FashionSpace',
-      brand: 'FashionSpace',
+      title: 'Весенняя коллекция российского бренда FashionSpace',
+      brand: 'FashionSpace РФ',
       reward: '20,000 ₽',
       deadline: '1 мар 2025',
       status: 'applied',
-      description: 'Демонстрация новой коллекции весна-лето',
-      requirements: 'Fashion-блогеры, женская аудитория',
-      platforms: ['instagram', 'vk']
+      description: 'Демонстрация новой коллекции весна-лето для российского рынка',
+      requirements: 'Fashion-блогеры, российская женская аудитория',
+      platforms: ['vk', 'telegram']
     },
     {
       id: 3,
-      title: 'Здоровый образ жизни с HealthyLife',
-      brand: 'HealthyLife',
+      title: 'Здоровый образ жизни с российским брендом HealthyLife',
+      brand: 'HealthyLife Россия',
       reward: '12,500 ₽',
       deadline: '28 фев 2025',
       status: 'completed',
-      description: 'Продвижение продуктов здорового питания',
-      requirements: 'Health & Fitness блогеры',
-      platforms: ['youtube', 'rutube']
+      description: 'Продвижение российских продуктов здорового питания',
+      requirements: 'Health & Fitness блогеры из России',
+      platforms: ['rutube', 'vk']
     }
   ]);
 
@@ -74,6 +76,7 @@ const Dashboard = () => {
     // Simulate verification process
     setTimeout(() => {
       updateUser({ isVerified: true });
+      addLoyaltyPoints(100, 'verification');
     }, 2000);
   };
 
@@ -105,24 +108,33 @@ const Dashboard = () => {
     }
   };
 
+  const getLoyaltyLevel = (points) => {
+    if (points >= 1000) return { level: 'Платиновый', color: 'from-purple-500 to-purple-600' };
+    if (points >= 500) return { level: 'Золотой', color: 'from-yellow-500 to-yellow-600' };
+    if (points >= 200) return { level: 'Серебряный', color: 'from-gray-400 to-gray-500' };
+    return { level: 'Бронзовый', color: 'from-amber-600 to-amber-700' };
+  };
+
+  const loyaltyInfo = getLoyaltyLevel(user?.loyaltyPoints || 0);
+
   const renderOverview = () => (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-3xl p-8">
-        <div className="flex items-center justify-between mb-6">
+      <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-3xl p-6 md:p-8">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-6 space-y-4 lg:space-y-0">
           <div>
-            <h2 className="text-3xl font-black text-white mb-2">Добро пожаловать, {user.name}!</h2>
-            <p className="text-gray-300">Готовы зарабатывать больше? Вот ваша статистика</p>
+            <h2 className="text-2xl md:text-3xl font-black text-white mb-2">Добро пожаловать, {user.name}!</h2>
+            <p className="text-gray-300">Готовы зарабатывать больше? Вот ваша российская статистика</p>
           </div>
           {!user.isVerified && (
-            <div className="text-right">
-              <div className="flex items-center space-x-2 mb-2">
+            <div className="w-full lg:w-auto">
+              <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-2 mb-2">
                 <AlertCircle className="w-5 h-5 text-yellow-400" />
-                <span className="text-yellow-400 font-medium">Верификация не пройдена</span>
+                <span className="text-yellow-400 font-medium text-sm sm:text-base">Верификация не пройдена</span>
               </div>
               <Button 
                 onClick={handleVerification}
-                className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600"
+                className="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-sm sm:text-base"
               >
                 Пройти верификацию
               </Button>
@@ -130,35 +142,55 @@ const Dashboard = () => {
           )}
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="text-center p-4 bg-white/5 rounded-2xl backdrop-blur-sm">
-            <DollarSign className="w-8 h-8 text-green-400 mx-auto mb-2" />
-            <div className="text-2xl font-black text-green-400">127,500 ₽</div>
-            <div className="text-sm text-gray-400">Заработано за месяц</div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="text-center p-3 md:p-4 bg-white/5 rounded-2xl backdrop-blur-sm">
+            <DollarSign className="w-6 h-6 md:w-8 md:h-8 text-green-400 mx-auto mb-2" />
+            <div className="text-lg md:text-2xl font-black text-green-400">127,500 ₽</div>
+            <div className="text-xs md:text-sm text-gray-400">Заработано за месяц</div>
           </div>
-          <div className="text-center p-4 bg-white/5 rounded-2xl backdrop-blur-sm">
-            <Target className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-            <div className="text-2xl font-black text-blue-400">12</div>
-            <div className="text-sm text-gray-400">Активных кампаний</div>
+          <div className="text-center p-3 md:p-4 bg-white/5 rounded-2xl backdrop-blur-sm">
+            <Target className="w-6 h-6 md:w-8 md:h-8 text-blue-400 mx-auto mb-2" />
+            <div className="text-lg md:text-2xl font-black text-blue-400">12</div>
+            <div className="text-xs md:text-sm text-gray-400">Активных кампаний</div>
           </div>
-          <div className="text-center p-4 bg-white/5 rounded-2xl backdrop-blur-sm">
-            <TrendingUp className="w-8 h-8 text-purple-400 mx-auto mb-2" />
-            <div className="text-2xl font-black text-purple-400">+47%</div>
-            <div className="text-sm text-gray-400">Рост за месяц</div>
+          <div className="text-center p-3 md:p-4 bg-white/5 rounded-2xl backdrop-blur-sm">
+            <TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-purple-400 mx-auto mb-2" />
+            <div className="text-lg md:text-2xl font-black text-purple-400">+47%</div>
+            <div className="text-xs md:text-sm text-gray-400">Рост за месяц</div>
           </div>
-          <div className="text-center p-4 bg-white/5 rounded-2xl backdrop-blur-sm">
-            <Award className="w-8 h-8 text-yellow-400 mx-auto mb-2" />
-            <div className="text-2xl font-black text-yellow-400">Premium</div>
-            <div className="text-sm text-gray-400">Ваш статус</div>
+          <div className="text-center p-3 md:p-4 bg-white/5 rounded-2xl backdrop-blur-sm">
+            <Gift className="w-6 h-6 md:w-8 md:h-8 text-yellow-400 mx-auto mb-2" />
+            <div className="text-lg md:text-2xl font-black text-yellow-400">{user?.loyaltyPoints || 0}</div>
+            <div className="text-xs md:text-sm text-gray-400">Баллов лояльности</div>
           </div>
+        </div>
+        
+        {/* Loyalty Status */}
+        <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-2xl border border-purple-500/20">
+          <div className="flex items-center space-x-3 mb-2 sm:mb-0">
+            <Gift className="w-6 h-6 text-purple-400" />
+            <div>
+              <div className={`font-bold bg-gradient-to-r ${loyaltyInfo.color} bg-clip-text text-transparent`}>
+                Статус: {loyaltyInfo.level}
+              </div>
+              <div className="text-sm text-gray-400">Программа лояльности Ublogger</div>
+            </div>
+          </div>
+          <Button 
+            onClick={() => setActiveTab('settings')}
+            variant="outline"
+            className="border-purple-500/30 text-purple-300 hover:bg-purple-500/10 w-full sm:w-auto"
+          >
+            Подробнее
+          </Button>
         </div>
       </div>
 
       {/* Recent Activities */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card className="p-6 bg-slate-800/50 border-gray-700">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8">
+        <Card className="p-4 md:p-6 bg-slate-800/50 border-gray-700">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-white flex items-center">
+            <h3 className="text-lg md:text-xl font-bold text-white flex items-center">
               <Bell className="w-5 h-5 mr-2 text-purple-400" />
               Уведомления
             </h3>
@@ -171,12 +203,12 @@ const Dashboard = () => {
               }`}>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <h4 className="font-semibold text-white">{notification.title}</h4>
+                    <h4 className="font-semibold text-white text-sm md:text-base">{notification.title}</h4>
                     <p className="text-sm text-gray-300 mt-1">{notification.message}</p>
                     <p className="text-xs text-gray-400 mt-2">{notification.time}</p>
                   </div>
                   {notification.unread && (
-                    <div className="w-2 h-2 bg-purple-400 rounded-full mt-2"></div>
+                    <div className="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
                   )}
                 </div>
               </div>
@@ -184,11 +216,11 @@ const Dashboard = () => {
           </div>
         </Card>
 
-        <Card className="p-6 bg-slate-800/50 border-gray-700">
+        <Card className="p-4 md:p-6 bg-slate-800/50 border-gray-700">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-white flex items-center">
+            <h3 className="text-lg md:text-xl font-bold text-white flex items-center">
               <BarChart3 className="w-5 h-5 mr-2 text-green-400" />
-              Статистика
+              Российская статистика
             </h3>
             <Badge className="bg-green-500">↑ +23%</Badge>
           </div>
@@ -196,21 +228,21 @@ const Dashboard = () => {
             <div className="flex items-center justify-between p-3 bg-green-500/10 rounded-xl">
               <div className="flex items-center space-x-3">
                 <Eye className="w-5 h-5 text-green-400" />
-                <span className="text-white">Просмотры</span>
+                <span className="text-white text-sm md:text-base">Просмотры (РФ)</span>
               </div>
               <span className="text-green-400 font-bold">2.3M</span>
             </div>
             <div className="flex items-center justify-between p-3 bg-blue-500/10 rounded-xl">
               <div className="flex items-center space-x-3">
                 <Heart className="w-5 h-5 text-blue-400" />
-                <span className="text-white">Лайки</span>
+                <span className="text-white text-sm md:text-base">Лайки</span>
               </div>
               <span className="text-blue-400 font-bold">156K</span>
             </div>
             <div className="flex items-center justify-between p-3 bg-purple-500/10 rounded-xl">
               <div className="flex items-center space-x-3">
                 <Share2 className="w-5 h-5 text-purple-400" />
-                <span className="text-white">Репосты</span>
+                <span className="text-white text-sm md:text-base">Репосты</span>
               </div>
               <span className="text-purple-400 font-bold">23K</span>
             </div>
@@ -222,16 +254,16 @@ const Dashboard = () => {
 
   const renderCampaigns = () => (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-black text-white">Кампании</h2>
-        <div className="flex space-x-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-4 sm:space-y-0">
+        <h2 className="text-2xl font-black text-white">Российские кампании</h2>
+        <div className="flex flex-wrap gap-2">
           <Badge className="bg-green-500">{campaigns.filter(c => c.status === 'available').length} доступно</Badge>
           <Badge className="bg-yellow-500">{campaigns.filter(c => c.status === 'applied').length} в работе</Badge>
           <Badge className="bg-blue-500">{campaigns.filter(c => c.status === 'completed').length} завершено</Badge>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {campaigns.map(campaign => (
           <Card key={campaign.id} className="p-6 bg-slate-800/50 border-gray-700 hover:border-purple-500/30 transition-all duration-300">
             <div className="flex items-start justify-between mb-4">
@@ -240,7 +272,7 @@ const Dashboard = () => {
                 <p className="text-sm text-gray-400 mb-2">{campaign.brand}</p>
                 <p className="text-sm text-gray-300">{campaign.description}</p>
               </div>
-              <Badge className={`ml-4 ${getStatusColor(campaign.status)}`}>
+              <Badge className={`ml-4 ${getStatusColor(campaign.status)} flex-shrink-0`}>
                 {getStatusText(campaign.status)}
               </Badge>
             </div>
@@ -314,7 +346,7 @@ const Dashboard = () => {
                   <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
                     <Sparkles className="w-6 h-6 text-white" />
                   </div>
-                  <div>
+                  <div className="hidden sm:block">
                     <h1 className="text-xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                       Ublogger
                     </h1>
@@ -322,14 +354,14 @@ const Dashboard = () => {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2 sm:space-x-4">
+                <div className="flex items-center space-x-2 sm:space-x-3">
                   <img 
                     src={user.avatar} 
                     alt={user.name}
                     className="w-8 h-8 rounded-xl"
                   />
-                  <div>
+                  <div className="hidden md:block">
                     <p className="text-sm font-medium text-white">{user.name}</p>
                     <div className="flex items-center space-x-1">
                       {user.isVerified ? (
@@ -359,7 +391,7 @@ const Dashboard = () => {
         {/* Navigation Tabs */}
         <div className="bg-slate-800/30 border-b border-gray-700/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex space-x-8">
+            <div className="flex space-x-4 sm:space-x-8 overflow-x-auto">
               {[
                 { id: 'overview', label: 'Обзор', icon: BarChart3 },
                 { id: 'campaigns', label: 'Кампании', icon: Target },
@@ -371,14 +403,14 @@ const Dashboard = () => {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center space-x-2 py-4 border-b-2 transition-colors duration-200 ${
+                    className={`flex items-center space-x-2 py-4 border-b-2 transition-colors duration-200 whitespace-nowrap ${
                       activeTab === tab.id
                         ? 'border-purple-500 text-purple-400'
                         : 'border-transparent text-gray-400 hover:text-white'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
-                    <span className="font-medium">{tab.label}</span>
+                    <span className="font-medium text-sm sm:text-base">{tab.label}</span>
                   </button>
                 );
               })}
@@ -387,23 +419,11 @@ const Dashboard = () => {
         </div>
 
         {/* Main Content */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
           {activeTab === 'overview' && renderOverview()}
           {activeTab === 'campaigns' && renderCampaigns()}
-          {activeTab === 'analytics' && (
-            <div className="text-center py-20">
-              <BarChart3 className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-white mb-2">Аналитика</h2>
-              <p className="text-gray-400">Раздел в разработке</p>
-            </div>
-          )}
-          {activeTab === 'settings' && (
-            <div className="text-center py-20">
-              <Settings className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-white mb-2">Настройки</h2>
-              <p className="text-gray-400">Раздел в разработке</p>
-            </div>
-          )}
+          {activeTab === 'analytics' && <Analytics />}
+          {activeTab === 'settings' && <ProfileSettings />}
         </main>
       </div>
     </div>

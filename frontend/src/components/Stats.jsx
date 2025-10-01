@@ -1,55 +1,184 @@
 import React, { useState, useEffect } from 'react';
 import { stats } from './mockData';
 import { TrendingUp, Users, DollarSign, Target, Zap, Award } from 'lucide-react';
+import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+);
 
 const Stats = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [animatedStats, setAnimatedStats] = useState({});
+  const [selectedStat, setSelectedStat] = useState(null);
+  const [showChart, setShowChart] = useState(false);
 
   const statsData = [
     {
       icon: Users,
-      value: stats.totalBloggers,
-      label: 'Активных блогеров',
+      value: '1,250,000',
+      label: 'Российских блогеров',
       color: 'from-purple-500 to-pink-500',
-      bgColor: 'from-purple-500/10 to-pink-500/10'
+      bgColor: 'from-purple-500/10 to-pink-500/10',
+      chartData: {
+        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
+        datasets: [{
+          label: 'Российские блогеры',
+          data: [850000, 920000, 980000, 1050000, 1120000, 1180000, 1250000],
+          borderColor: 'rgb(168, 85, 247)',
+          backgroundColor: 'rgba(168, 85, 247, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      }
     },
     {
       icon: DollarSign,
-      value: stats.totalEarnings,
-      label: 'Общий доход',
+      value: '12.5 млрд ₽',
+      label: 'Общий российский доход',
       color: 'from-green-500 to-emerald-500',
-      bgColor: 'from-green-500/10 to-emerald-500/10'
+      bgColor: 'from-green-500/10 to-emerald-500/10',
+      chartData: {
+        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
+        datasets: [{
+          label: 'Доход (млрд ₽)',
+          data: [8.2, 9.1, 9.8, 10.5, 11.2, 11.8, 12.5],
+          borderColor: 'rgb(34, 197, 94)',
+          backgroundColor: 'rgba(34, 197, 94, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      }
     },
     {
       icon: Target,
-      value: stats.totalBrands,
-      label: 'Партнерских брендов',
+      value: '450',
+      label: 'Российских брендов',
       color: 'from-blue-500 to-cyan-500',
-      bgColor: 'from-blue-500/10 to-cyan-500/10'
+      bgColor: 'from-blue-500/10 to-cyan-500/10',
+      chartData: {
+        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
+        datasets: [{
+          label: 'Российские бренды',
+          data: [280, 310, 340, 375, 400, 425, 450],
+          borderColor: 'rgb(59, 130, 246)',
+          backgroundColor: 'rgba(59, 130, 246, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      }
     },
     {
       icon: Award,
-      value: stats.exclusiveProjects,
-      label: 'Эксклюзивных проектов',
+      value: '89',
+      label: 'Эксклюзивных проектов РФ',
       color: 'from-orange-500 to-red-500',
-      bgColor: 'from-orange-500/10 to-red-500/10'
+      bgColor: 'from-orange-500/10 to-red-500/10',
+      chartData: {
+        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
+        datasets: [{
+          label: 'Эксклюзивные проекты',
+          data: [45, 52, 61, 68, 75, 82, 89],
+          borderColor: 'rgb(249, 115, 22)',
+          backgroundColor: 'rgba(249, 115, 22, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      }
     },
     {
       icon: TrendingUp,
-      value: stats.averageCPV,
-      label: 'Средняя стоимость CPV',
+      value: '0.85 ₽',
+      label: 'Средняя стоимость CPV (РФ)',
       color: 'from-indigo-500 to-purple-500',
-      bgColor: 'from-indigo-500/10 to-purple-500/10'
+      bgColor: 'from-indigo-500/10 to-purple-500/10',
+      chartData: {
+        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
+        datasets: [{
+          label: 'CPV (₽)',
+          data: [0.72, 0.75, 0.78, 0.80, 0.82, 0.83, 0.85],
+          borderColor: 'rgb(99, 102, 241)',
+          backgroundColor: 'rgba(99, 102, 241, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      }
     },
     {
       icon: Zap,
-      value: stats.successfulCampaigns,
-      label: 'Успешных кампаний',
+      value: '23,847',
+      label: 'Успешных российских кампаний',
       color: 'from-teal-500 to-cyan-500',
-      bgColor: 'from-teal-500/10 to-cyan-500/10'
+      bgColor: 'from-teal-500/10 to-cyan-500/10',
+      chartData: {
+        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл'],
+        datasets: [{
+          label: 'Успешные кампании',
+          data: [12500, 15200, 17800, 19500, 21200, 22400, 23847],
+          borderColor: 'rgb(20, 184, 166)',
+          backgroundColor: 'rgba(20, 184, 166, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      }
     }
   ];
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false
+      },
+      tooltip: {
+        backgroundColor: 'rgba(30, 41, 59, 0.9)',
+        titleColor: 'rgb(255, 255, 255)',
+        bodyColor: 'rgb(255, 255, 255)',
+        borderColor: 'rgba(168, 85, 247, 0.5)',
+        borderWidth: 1
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: 'rgb(156, 163, 175)'
+        },
+        grid: {
+          color: 'rgba(75, 85, 99, 0.3)'
+        }
+      },
+      y: {
+        ticks: {
+          color: 'rgb(156, 163, 175)'
+        },
+        grid: {
+          color: 'rgba(75, 85, 99, 0.3)'
+        }
+      }
+    },
+    elements: {
+      point: {
+        radius: 6,
+        hoverRadius: 8
+      }
+    }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -73,6 +202,16 @@ const Stats = () => {
     };
   }, []);
 
+  const handleStatClick = (stat, index) => {
+    setSelectedStat(index);
+    setShowChart(true);
+  };
+
+  const closeChart = () => {
+    setShowChart(false);
+    setSelectedStat(null);
+  };
+
   return (
     <section id="stats-section" className="py-24 relative overflow-hidden">
       {/* Background Elements */}
@@ -86,7 +225,7 @@ const Stats = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full mb-6">
             <TrendingUp className="w-4 h-4 text-purple-400 mr-2" />
-            <span className="text-sm font-medium text-purple-300">Наши достижения</span>
+            <span className="text-sm font-medium text-purple-300">Наши достижения в России</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-black mb-6">
             <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
@@ -94,11 +233,11 @@ const Stats = () => {
             </span>
             <br />
             <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
-              индустрию блогинга
+              российскую индустрию блогинга
             </span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Платформа, которая объединяет миллионы блогеров с лучшими брендами мира через современные технологии
+            Платформа, которая объединяет миллионы российских блогеров с лучшими отечественными брендами через современные технологии
           </p>
         </div>
 
@@ -113,6 +252,7 @@ const Stats = () => {
                   isVisible ? 'animate-fadeInUp' : 'opacity-0'
                 }`}
                 style={{ animationDelay: `${index * 0.1}s` }}
+                onClick={() => handleStatClick(stat, index)}
               >
                 {/* Card Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-2xl backdrop-blur-sm border border-gray-700/50 group-hover:border-purple-500/30 transition-all duration-300"></div>
@@ -135,6 +275,13 @@ const Stats = () => {
                     {stat.label}
                   </div>
                   
+                  {/* Click Indicator */}
+                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center">
+                      <TrendingUp className="w-4 h-4 text-purple-400" />
+                    </div>
+                  </div>
+                  
                   {/* Hover Glow */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} rounded-2xl opacity-0 group-hover:opacity-10 blur-xl transition-all duration-300`}></div>
                 </div>
@@ -154,10 +301,40 @@ const Stats = () => {
         <div className="text-center mt-16">
           <div className="inline-flex items-center space-x-2 text-gray-400 text-sm">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span>Обновляется в реальном времени</span>
+            <span>Данные обновляются в реальном времени для российского рынка</span>
           </div>
         </div>
       </div>
+
+      {/* Chart Modal */}
+      {showChart && selectedStat !== null && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-slate-800 rounded-3xl border border-gray-700 p-6 max-w-4xl w-full max-h-[80vh] overflow-auto">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="text-2xl font-black text-white">{statsData[selectedStat].label}</h3>
+                <p className="text-gray-400">Динамика роста за последние 7 месяцев</p>
+              </div>
+              <button
+                onClick={closeChart}
+                className="w-8 h-8 bg-gray-700 hover:bg-gray-600 rounded-full flex items-center justify-center text-gray-300 hover:text-white transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+            
+            <div className="h-80">
+              <Line data={statsData[selectedStat].chartData} options={chartOptions} />
+            </div>
+            
+            <div className="mt-6 p-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-2xl border border-purple-500/20">
+              <p className="text-purple-300 text-center">
+                📈 Нажмите на любую карточку статистики, чтобы увидеть детальную динамику показателей российского рынка
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         @keyframes fadeInUp {
