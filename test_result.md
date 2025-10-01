@@ -272,13 +272,13 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus:
-    - "Campaign details modal functionality with three-tab system"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
   backend_testing_complete: true
   frontend_fixes_complete: true
+  campaign_details_testing_complete: true
 
 agent_communication:
   - agent: "main"
