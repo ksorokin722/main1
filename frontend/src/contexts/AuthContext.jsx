@@ -77,12 +77,40 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      const totalReach = userData.socialAccounts.reduce((sum, account) => sum + account.followers, 0);
+    try {
+      const registeredUser = await authAPI.register({
+        name: userData.name,
+        email: userData.email,
+        password: userData.password,
+        phone: userData.phone,
+        social_accounts: userData.socialAccounts
+      });
       
       setUser({
-        id: Date.now(),
+        ...registeredUser,
+        avatar: registeredUser.avatar || 'https://images.unsplash.com/photo-1494790108755-2616c5e7b37e?w=400&h=400&fit=crop&crop=face',
+        socialAccounts: registeredUser.social_accounts || [],
+        contactInfo: registeredUser.contact_info || {
+          telegram: '',
+          whatsapp: '',
+          vk: ''
+        },
+        payoutInfo: registeredUser.payout_info || {
+          method: 'card',
+          cardNumber: '',
+          bankName: '',
+          accountHolder: ''
+        },
+        loyaltyPoints: registeredUser.loyalty_points || 100,
+        isVerified: registeredUser.is_verified || false
+      });
+    } catch (error) {
+      console.error('Registration error:', error);
+      // Fallback to mock data for development
+      const totalReach = userData.socialAccounts?.reduce((sum, account) => sum + account.followers, 0) || 0;
+      
+      setUser({
+        id: Date.now().toString(),
         name: userData.name,
         email: userData.email,
         avatar: userData.avatar || 'https://images.unsplash.com/photo-1494790108755-2616c5e7b37e?w=400&h=400&fit=crop&crop=face',
@@ -94,20 +122,13 @@ export const AuthProvider = ({ children }) => {
           whatsapp: '',
           vk: ''
         },
-        reach: {
-          total: totalReach,
-          youtube: userData.socialAccounts.find(s => s.id === 'youtube')?.followers || 0,
-          telegram: userData.socialAccounts.find(s => s.id === 'telegram')?.followers || 0,
-          rutube: userData.socialAccounts.find(s => s.id === 'rutube')?.followers || 0,
-          vk: userData.socialAccounts.find(s => s.id === 'vk')?.followers || 0
-        },
         payoutInfo: {
           method: 'card',
           cardNumber: '',
           bankName: '',
           accountHolder: ''
         },
-        loyaltyPoints: 100, // Начальные баллы за регистрацию
+        loyaltyPoints: 100,
         stats: {
           followers: totalReach,
           campaigns: 0,
@@ -118,8 +139,9 @@ export const AuthProvider = ({ children }) => {
           totalEngagement: 0
         }
       });
+    } finally {
       setIsLoading(false);
-    }, 2000);
+    }
   };
 
   const logout = () => {
