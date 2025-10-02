@@ -352,14 +352,16 @@ const AdvertiserDashboard = () => {
               </h1>
               <Badge className="bg-blue-500 text-white">Рекламодатель</Badge>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <Button variant="outline" size="sm" className="border-gray-600 text-gray-300">
-                <Settings className="w-4 h-4 mr-2" />
-                Настройки
+                <Settings className="w-4 h-4 sm:mr-2" />
+                <span className="hidden sm:inline">Настройки</span>
+                <span className="sm:hidden">⚙️</span>
               </Button>
               <Button variant="outline" size="sm" className="border-gray-600 text-gray-300">
-                <LogOut className="w-4 h-4 mr-2" />
-                Выход
+                <LogOut className="w-4 h-4 sm:mr-2" />
+                <span className="hidden sm:inline">Выход</span>
+                <span className="sm:hidden">🚪</span>
               </Button>
             </div>
           </div>
