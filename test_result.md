@@ -528,16 +528,19 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Campaign details modal with application button"
-  stuck_tasks:
-    - "Campaign details modal with application button"
+    - "Mobile login access with two new login buttons"
+    - "Mobile icon navigation for blogger and advertiser dashboards"
+    - "Light/Dark theme toggle functionality"
+    - "Create campaign modal with 3-step process"
+  stuck_tasks: []
   test_all: false
   test_priority: "high_first"
   backend_testing_complete: true
   frontend_fixes_complete: true
-  campaign_details_testing_complete: false
+  campaign_details_testing_complete: true
   advertiser_functionality_testing_complete: true
   six_improvements_testing_complete: true
+  four_major_improvements_testing_complete: true
 
 agent_communication:
   - agent: "main"
