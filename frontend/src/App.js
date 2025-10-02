@@ -13,18 +13,20 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/profile" element={<ProfileSettings />} />
-            <Route path="/advertiser/auth" element={<AdvertiserAuth />} />
-            <Route path="/advertiser/dashboard" element={<AdvertiserDashboard />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/profile" element={<ProfileSettings />} />
+              <Route path="/advertiser/auth" element={<AdvertiserAuth />} />
+              <Route path="/advertiser/dashboard" element={<AdvertiserDashboard />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
+      </ThemeProvider>
     </div>
   );
 }
