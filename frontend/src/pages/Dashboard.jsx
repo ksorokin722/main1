@@ -468,10 +468,10 @@ const Dashboard = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex space-x-4 sm:space-x-8 overflow-x-auto">
               {[
-                { id: 'overview', label: 'Главная', icon: BarChart3 },
-                { id: 'campaigns', label: 'Кампании', icon: Target },
-                { id: 'analytics', label: 'Аналитика', icon: TrendingUp },
-                { id: 'settings', label: 'Настройки', icon: Settings }
+                { id: 'overview', label: 'Главная', mobileLabel: '🏠', icon: BarChart3 },
+                { id: 'campaigns', label: 'Кампании', mobileLabel: '🎯', icon: Target },
+                { id: 'analytics', label: 'Аналитика', mobileLabel: '📊', icon: TrendingUp },
+                { id: 'settings', label: 'Настройки', mobileLabel: '⚙️', icon: Settings }
               ].map(tab => {
                 const Icon = tab.icon;
                 return (
