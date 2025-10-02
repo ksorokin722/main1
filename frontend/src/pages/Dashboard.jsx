@@ -6,6 +6,8 @@ import { Card } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import Analytics from '../components/Analytics';
 import CampaignDetails from '../components/CampaignDetails';
+import ThemeToggle from '../components/ThemeToggle';
+import { useTheme } from '../contexts/ThemeContext';
 import ProfileSettings from '../pages/ProfileSettings';
 import { 
   User, Settings, LogOut, TrendingUp, DollarSign, Users, 
