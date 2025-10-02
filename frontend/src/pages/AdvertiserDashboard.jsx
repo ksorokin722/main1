@@ -366,6 +366,7 @@ const AdvertiserDashboard = () => {
               <Badge className="bg-blue-500 text-white">Рекламодатель</Badge>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-4">
+              <ThemeToggle size="sm" />
               <Button variant="outline" size="sm" className="border-gray-600 text-gray-300">
                 <Settings className="w-4 h-4 sm:mr-2" />
                 <span className="hidden sm:inline">Настройки</span>
