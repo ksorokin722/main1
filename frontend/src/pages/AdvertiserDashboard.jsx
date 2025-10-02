@@ -3,6 +3,9 @@ import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
+import ThemeToggle from '../components/ThemeToggle';
+import CreateCampaignModal from '../components/CreateCampaignModal';
+import { useTheme } from '../contexts/ThemeContext';
 import { 
   Users, Filter, ShoppingCart, Eye, Star, MapPin, 
   TrendingUp, Heart, MessageCircle, Share2, Plus,
