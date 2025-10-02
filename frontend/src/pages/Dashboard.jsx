@@ -455,13 +455,32 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
+                <ThemeToggle size="sm" />
                 <Button
-                  onClick={handleLogout}
                   variant="ghost"
                   size="sm"
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-300 hover:text-white relative"
                 >
-                  <LogOut className="w-4 h-4" />
+                  <Bell className="w-5 h-5" />
+                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => navigate('/profile')}
+                  className="text-gray-300 hover:text-white"
+                >
+                  <Settings className="w-5 h-5" />
+                  <span className="hidden sm:inline ml-2">Настройки</span>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleLogout}
+                  className="text-gray-300 hover:text-white"
+                >
+                  <LogOut className="w-5 h-5" />
+                  <span className="hidden sm:inline ml-2">Выход</span>
                 </Button>
               </div>
             </div>
