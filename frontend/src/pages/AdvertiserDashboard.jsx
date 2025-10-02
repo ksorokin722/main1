@@ -16,6 +16,7 @@ import {
 const AdvertiserDashboard = () => {
   const [activeTab, setActiveTab] = useState('catalog');
   const [selectedBloggers, setSelectedBloggers] = useState([]);
+  const [showCreateCampaignModal, setShowCreateCampaignModal] = useState(false);
   const [filters, setFilters] = useState({
     category: 'all',
     minFollowers: 0,
@@ -24,6 +25,9 @@ const AdvertiserDashboard = () => {
     ageRange: 'all',
     geo: 'all'
   });
+
+  const { getThemeColors } = useTheme();
+  const colors = getThemeColors();
 
   // Mock data - 20 блогеров
   const bloggers = [
