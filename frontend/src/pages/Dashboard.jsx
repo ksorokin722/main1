@@ -435,7 +435,6 @@ const Dashboard = () => {
               </div>
               
               <div className="flex items-center space-x-2 sm:space-x-4">
-                <div className="flex items-center space-x-2 sm:space-x-4">
                 <div className="flex items-center space-x-2 sm:space-x-3">
                   <img 
                     src={user.avatar} 
@@ -483,6 +482,7 @@ const Dashboard = () => {
                   <LogOut className="w-5 h-5" />
                   <span className="hidden sm:inline ml-2">Выход</span>
                 </Button>
+              </div>
               </div>
             </div>
           </div>
