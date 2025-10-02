@@ -9,6 +9,7 @@ import ProfileSettings from './pages/ProfileSettings';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import './App.css';
+import './styles/theme.css';
 
 function App() {
   return (
