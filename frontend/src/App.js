@@ -7,6 +7,7 @@ import AdvertiserAuth from './pages/AdvertiserAuth';
 import AdvertiserDashboard from './pages/AdvertiserDashboard';
 import ProfileSettings from './pages/ProfileSettings';
 import { AuthProvider } from './contexts/AuthContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import './App.css';
 
 function App() {
