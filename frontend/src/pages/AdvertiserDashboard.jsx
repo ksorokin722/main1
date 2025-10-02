@@ -347,6 +347,12 @@ const AdvertiserDashboard = () => {
   const totalCampaignCost = selectedBloggers.reduce((sum, blogger) => sum + blogger.price, 0);
   const totalReach = selectedBloggers.reduce((sum, blogger) => sum + blogger.reach, 0);
 
+  const handleCreateCampaign = (campaignData) => {
+    console.log('Создание кампании:', campaignData);
+    // Здесь будет логика создания кампании
+    alert('Кампания успешно создана!');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Header */}
