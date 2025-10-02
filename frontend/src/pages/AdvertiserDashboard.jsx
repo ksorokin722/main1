@@ -1022,6 +1022,13 @@ const AdvertiserDashboard = () => {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Create Campaign Modal */}
+      <CreateCampaignModal 
+        isOpen={showCreateCampaignModal}
+        onClose={() => setShowCreateCampaignModal(false)}
+        onSubmit={handleCreateCampaign}
+      />
     </div>
   );
 };
