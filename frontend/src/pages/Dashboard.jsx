@@ -485,7 +485,10 @@ const Dashboard = () => {
                     }`}
                   >
                     <Icon className="w-4 h-4" />
-                    <span className="font-medium text-sm sm:text-base">{tab.label}</span>
+                    <span className="font-medium text-sm sm:text-base">
+                      <span className="sm:hidden">{tab.mobileLabel}</span>
+                      <span className="hidden sm:inline">{tab.label}</span>
+                    </span>
                   </button>
                 );
               })}
