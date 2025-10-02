@@ -372,12 +372,14 @@ const AdvertiserDashboard = () => {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-4 bg-slate-800/50 border border-gray-700">
             <TabsTrigger value="catalog" className="data-[state=active]:bg-purple-500">
-              <Users className="w-4 h-4 mr-2" />
-              Каталог блогеров
+              <Users className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">Каталог блогеров</span>
+              <span className="sm:hidden text-xs">👥</span>
             </TabsTrigger>
             <TabsTrigger value="bag" className="data-[state=active]:bg-purple-500 relative">
-              <ShoppingCart className="w-4 h-4 mr-2" />
-              Корзина
+              <ShoppingCart className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">Корзина</span>
+              <span className="sm:hidden text-xs">🛒</span>
               {selectedBloggers.length > 0 && (
                 <Badge className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                   {selectedBloggers.length}
@@ -385,12 +387,14 @@ const AdvertiserDashboard = () => {
               )}
             </TabsTrigger>
             <TabsTrigger value="campaigns" className="data-[state=active]:bg-purple-500">
-              <Target className="w-4 h-4 mr-2" />
-              Мои кампании
+              <Target className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">Мои кампании</span>
+              <span className="sm:hidden text-xs">🎯</span>
             </TabsTrigger>
             <TabsTrigger value="analytics" className="data-[state=active]:bg-purple-500">
-              <BarChart3 className="w-4 h-4 mr-2" />
-              Аналитика
+              <BarChart3 className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">Аналитика</span>
+              <span className="sm:hidden text-xs">📊</span>
             </TabsTrigger>
           </TabsList>
 
