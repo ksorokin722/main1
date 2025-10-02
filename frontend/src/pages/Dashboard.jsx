@@ -483,7 +483,6 @@ const Dashboard = () => {
                   <span className="hidden sm:inline ml-2">Выход</span>
                 </Button>
               </div>
-              </div>
             </div>
           </div>
         </header>
